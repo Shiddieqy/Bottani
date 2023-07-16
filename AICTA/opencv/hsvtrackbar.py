@@ -15,7 +15,8 @@ cv2.createTrackbar('val min', 'Track', 0,255,track)
 cv2.createTrackbar('val max', 'Track', 255,255,track)
 cap = cv2.VideoCapture(0)
 # cap = cv2.VideoCapture("video.mp4")
-
+width  = cap.get(3)   # float `width`
+height = cap.get(4)
 while (1):
     
     _,frame = cap.read() 
@@ -44,7 +45,8 @@ while (1):
         if area > threshold_area: 
             (xg,yg,wg,hg)=cv2.boundingRect(i)
             cv2.rectangle(frame,(xg,yg),(xg+wg,yg+hg),(0,255,0),3)
-            print("x : ",xg, "y : ",yg)
+            print("x : ",xg+wg/2-width/2, "y : ",-1*(yg+hg/2-height/2))
+    cv2.drawMarker(frame, (int(width/2), int(height/2)),  (0, 0, 255), cv2.MARKER_CROSS, 10, 1);
 
     cv2.imshow('ori',frame)
     cv2.imshow('hsv',mask)
