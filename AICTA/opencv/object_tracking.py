@@ -84,16 +84,16 @@ while (1):
                 identity = 0
                 for i in range(len(id_no)):
                     rvalue = (xcord - x_id[i])**2 +(ycord - y_id[i])**2
-                    if(check_id==0 and rvalue < rmax):
+                    if(rvalue < rmax):
                         rmax = rvalue
                         identity = i
                 
-
-                x_id[identity] = xcord
-                y_id[identity] = ycord
-                identified = 1
-                check_id[identity] = 1
-                cv2.putText(frame, str(id_no[identity]), (xg,yg-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+                if (check_id[identity]==0):
+                    x_id[identity] = xcord
+                    y_id[identity] = ycord
+                    identified = 1
+                    check_id[identity] = 1
+                    cv2.putText(frame, str(id_no[identity]), (xg,yg-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
             
             
 
