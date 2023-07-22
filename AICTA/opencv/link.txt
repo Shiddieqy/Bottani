@@ -1,0 +1,6 @@
+https://solarianprogrammer.com/2016/09/17/install-opencv-3-with-python-3-on-windows/
+
+
+https://www.pyimagesearch.com/2015/09/14/ball-tracking-with-opencv/
+
+https://www.python.org/downloads/release/python-383rc1/
