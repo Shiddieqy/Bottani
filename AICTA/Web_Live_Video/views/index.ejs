@@ -3,25 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Image Streaming</title>
+    <title>Live Video Streaming with Object Detection</title>
 </head>
 <body>
-    <img id="imageElement" src="image.jpeg" alt="Live Image">
-    <!-- <img src="image.jpeg"/> -->
+    <video id="videoElement" autoplay></video>
+    <canvas id="canvasElement"></canvas>
+    <button id="startButton">Start Stream</button>
+    <button id="stopButton">Stop Stream</button>
+
     <script>
-        const image = document.getElementById('imageElement');
-        
-        function updateImage() {
-            const timestamp = new Date().getTime(); // Add timestamp to prevent caching
-            if (!image.src.includes('?')) {
-                image.src = `${image.src}?${timestamp}`
-            } else {
-                image.src = image.src.slice(0, image.src.indexOf('?') + 1) + timestamp
+        const videoElement = document.getElementById('videoElement');
+        const canvasElement = document.getElementById('canvasElement');
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+        let stream;
+
+        // Start video stream
+        startButton.addEventListener('click', () => {
+            if (navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then((stream) => {
+                        videoElement.srcObject = stream;
+                        // Store the stream for later use
+                        stream = stream;
+                    })
+                    .catch((error) => {
+                        console.error('Error accessing the camera:', error);
+                    });
             }
+        });
+
+        // Stop video stream
+        stopButton.addEventListener('click', () => {
+            if (stream && isStreaming) {
+                const tracks = stream.getTracks();
+                tracks.forEach(track => track.stop());
+                videoElement.srcObject = null;
+                stream = null;
+                isStreaming = false;
+            }
+        });
+
+        // Draw object detection annotations on canvas
+        function drawAnnotations(imageData) {
+            const ctx = canvasElement.getContext('2d');
+            const img = new Image();
+            img.onload = function () {
+                canvasElement.width = img.width;
+                canvasElement.height = img.height;
+                ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+                ctx.drawImage(img, 0, 0);
+                // Perform drawing of object detection annotations here
+                // ... Your object detection annotation drawing code ...
+            };
+            img.src = URL.createObjectURL(new Blob([imageData], { type: 'image/jpeg' }));
         }
 
-        // Update the image every second
-        setInterval(updateImage, 400);
+        // Update canvas with annotations when new image is received
+        function updateCanvas() {
+            fetch('/latest-image')
+                .then(response => response.arrayBuffer())
+                .then(data => drawAnnotations(data))
+                .catch(error => console.error('Error fetching image:', error));
+        }
+
+        // Update the canvas periodically
+        setInterval(updateCanvas, 100); // Update every second
     </script>
 </body>
 </html>

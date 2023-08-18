@@ -12,6 +12,7 @@ pythonProcess.stderr.on('data', (data) => {
   console.error(`Python Error: ${data}`);
 });
 
+const path = require("path")
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -31,6 +32,19 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 // Route to render the main page
 app.get('/', (req, res) => {
   res.render('index');
+});
+
+// Endpoint to serve the latest image data
+app.get('/latest-image', (req, res) => {
+    const imagePath = path.join(__dirname, 'public', 'image.jpeg');
+    fs.readFile(imagePath, (err, data) => {
+        if (err) {
+            res.status(404).send('No image data available.');
+        } else {
+            res.setHeader('Content-Type', 'image/jpeg');
+            res.send(data);
+        }
+    });
 });
 
 app.post("/",

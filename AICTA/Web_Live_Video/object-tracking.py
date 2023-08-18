@@ -163,7 +163,7 @@ while (1):
     # ser.write(message.encode())
     print(f"Sent: {message}")
 
-    cv2.imshow('ori',frame)
+    # cv2.imshow('ori',frame)
     _, encoded_frame = cv2.imencode('.jpg', frame)
 
     response = requests.post(server_url, data=encoded_frame.tobytes(), headers={'Content-Type': 'image/jpeg'})
@@ -172,7 +172,7 @@ while (1):
     else:
         print('Failed to send data')
     
-    cv2.imshow('hsv',mask)
+    # cv2.imshow('hsv',mask)
     
     if cv2.waitKey(1) %0xFF == ord('q'):
         break
