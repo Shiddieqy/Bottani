@@ -1,17 +1,25 @@
 const { spawn } = require('child_process');
+let pythonProcess;
 
-// Start the Python script as a child process
-const pythonProcess = spawn('python', ['object-tracking.py']);
+function runOpenCvPythonScript(){
+    // Start the Python script as a child process
+    pythonProcess = spawn('python', ['object-tracking.py']);
 
-// Log Python script output
-pythonProcess.stdout.on('data', (data) => {
-  console.log(`Python Output: ${data}`);
-});
+    // Log Python script output
+    pythonProcess.stdout.on('data', (data) => {
+    console.log(`Python Output: ${data}`);
+    });
 
-pythonProcess.stderr.on('data', (data) => {
-  console.error(`Python Error: ${data}`);
-});
+    pythonProcess.stderr.on('data', (data) => {
+    console.error(`Python Error: ${data}`);
+    });
+}
 
+function stopOpenCvPythonScript(){
+    if(pythonProcess){
+        pythonProcess.kill();
+    }
+}
 const path = require("path")
 const express = require('express');
 const app = express();
@@ -62,6 +70,17 @@ app.post("/",
         res.sendStatus(500);
     }
 });
+
+app.get("/start-streaming", (req, res) =>{
+    runOpenCvPythonScript();
+    res.redirect("/")
+})
+
+app.get("/stop-streaming", (req, res)=>{
+    stopOpenCvPythonScript();
+    res.redirect("/")
+    
+})
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
