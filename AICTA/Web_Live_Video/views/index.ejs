@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live Share Video</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Image Streaming</title>
 </head>
 <body>
-  <h1>Live Share Video</h1>
-  <button id="startButton">Start Live Share</button>
-  <button id="stopButton">Stop Live Share</button>
+    <img id="imageElement" src="image.jpeg" alt="Live Image">
+    <!-- <img src="image.jpeg"/> -->
+    <script>
+        const image = document.getElementById('imageElement');
+        
+        function updateImage() {
+            const timestamp = new Date().getTime(); // Add timestamp to prevent caching
+            if (!image.src.includes('?')) {
+                image.src = `${image.src}?${timestamp}`
+            } else {
+                image.src = image.src.slice(0, image.src.indexOf('?') + 1) + timestamp
+            }
+        }
 
-  <script>
-    const startButton = document.getElementById('startButton');
-    const stopButton = document.getElementById('stopButton');
-
-    startButton.addEventListener('click', () => {
-      // Code to start live share video (to be implemented)
-      console.log('Starting live share...');
-    });
-
-    stopButton.addEventListener('click', () => {
-      // Code to stop live share video (to be implemented)
-      console.log('Stopping live share...');
-    });
-  </script>
+        // Update the image every second
+        setInterval(updateImage, 400);
+    </script>
 </body>
 </html>
