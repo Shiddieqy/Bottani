@@ -78,6 +78,14 @@ app.get("/start-streaming", (req, res) =>{
 
 app.get("/stop-streaming", (req, res)=>{
     stopOpenCvPythonScript();
+    const imagePath = path.join(__dirname, 'public', 'image.jpeg');
+    // fs.unlink(imagePath, (err) => {
+    //     if (err) {
+    //         console.error('Error deleting file:', err);
+    //     } else {
+    //         console.log('File deleted successfully');
+    //     }
+    // });
     res.redirect("/")
     
 })
