@@ -45,7 +45,7 @@ app.get("/ui/chart/chartjs/:sensorId", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://10.32.101.113:${port}`);
 });
 
 
