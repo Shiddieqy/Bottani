@@ -1,25 +1,4 @@
-const { spawn } = require('child_process');
-let pythonProcess;
 
-function runOpenCvPythonScript(){
-    // Start the Python script as a child process
-    pythonProcess = spawn('python', ['object-tracking.py']);
-
-    // Log Python script output
-    pythonProcess.stdout.on('data', (data) => {
-    console.log(`Python Output: ${data}`);
-    });
-
-    pythonProcess.stderr.on('data', (data) => {
-    console.error(`Python Error: ${data}`);
-    });
-}
-
-function stopOpenCvPythonScript(){
-    if(pythonProcess){
-        pythonProcess.kill();
-    }
-}
 const path = require("path")
 const express = require('express');
 const app = express();
@@ -38,6 +17,13 @@ app.use(express.static('public'));
 app.use(bodyParser.raw({ type: 'image/jpeg', limit: '10mb' }));
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 const sensorsData = require('./sensors');
+const liveRouter = require('./live');
+
+// Use the liveRouter for all /live routes
+app.use('/live', liveRouter);
+
+app.locals.sensors = sensorsData;
+
 
 // Route to render the main page
 app.get('/', (req, res) => {
@@ -57,37 +43,6 @@ app.get("/ui/chart/chartjs/:sensorId", (req, res) => {
 
     res.render('ui-chart-chartjs', { layout: 'layout.ejs', id: sensorId, sensors: sensorsData });
 });
-
-// Endpoint to serve the latest image data
-app.get('/latest-image', (req, res) => {
-    const imagePath = path.join(__dirname, 'public', 'image.jpeg');
-    fs.readFile(imagePath, (err, data) => {
-        if (err) {
-            res.status(404).send('No image data available.');
-        } else {
-            res.setHeader('Content-Type', 'image/jpeg');
-            res.send(data);
-        }
-    });
-});
-
-app.post("/",
-    bodyParser.raw({type: ["image/jpeg", "image/png"], limit: "5mb"}),
-    (req, res) => {
-    try {
-        fs.writeFile("public/image.jpeg", req.body, (error) => {
-        if (error) {
-            throw error;
-        }
-        });
-
-        res.sendStatus(200);
-    } catch (error) {
-        res.sendStatus(500);
-    }
-});
-
-
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
