@@ -30,9 +30,9 @@ void sampling_track(){
 //  Serial.print(right_value);
 //    Serial.print("\t");
   runtrack(left_value,right_value);
-//  Serial.print(prev_cmd[0]);
-//  Serial.print("\t");
-//  Serial.print(prev_cmd[1]);
-//  Serial.print("\t");
+  Serial.print(prev_cmd[0]);
+  Serial.print("\t");
+  Serial.print(prev_cmd[1]);
+  Serial.print("\t");
 //  Serial.println(sensor_state);
 }

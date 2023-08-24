@@ -138,7 +138,7 @@ void notify()
 //    }
       sampling_track();
       sampling_spray();
-      sampling_sram();
+//      sampling_sram();
 
 }
 

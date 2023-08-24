@@ -1,8 +1,8 @@
 #define PWM_FREQUENCY 5000
 #define PWM_RES 8
 
-#define PWM_R 100
-#define PWM_L 100
+#define PWM_R 200
+#define PWM_L 200
 #define PWM_X 100
 #define PWM_Z 100
 #define PWM_S 80
