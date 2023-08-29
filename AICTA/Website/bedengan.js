@@ -43,9 +43,9 @@ for(let i = 0; i < bedenganData.length; i++){
         bedenganData[i].plantCount++;
     }
     bedenganData[i].watered = []
-        for(let j = 0; j < bedenganData[i].plantCount; j++){
-            bedenganData[i].watered.push(j);
-        }
+        // for(let j = 0; j < bedenganData[i].plantCount; j++){
+        //     bedenganData[i].watered.push(j);
+        // }
 }
 
 

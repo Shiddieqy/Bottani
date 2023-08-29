@@ -38,7 +38,7 @@ function createSeries(s, name) {
     series.tooltip.getFillFromObject = true;
 
     // Set up the tooltip for the series
-    series.tooltipText = "{name}: [bold]{valueY}[/]";
+    series.tooltipText = "{name}";
 	
 	series.dataFields.valueY = "value" + s;
 	series.dataFields.dateX = "date";

@@ -120,7 +120,7 @@
           </div>
 
           <script src="/assets/static/js/firebase-chart-collection.js"></script>
-          <div class="container">
+          <div class="container" id="button-container">
 
 
             <div class="row ">
@@ -134,7 +134,6 @@
                           <%= bedengan[i].name %>
                         </h5>
                         <div class="card-body p-0 h-100">
-
                             <div class="container-fluid p-2">
                               <div class="row w-100 align-items-center justify-content-center" style="margin:auto" style="width:400px">
                                 <% for (let j = 0; j < bedengan[i].plantCount; j++){ %>
@@ -143,10 +142,7 @@
                                     <% } %>
                                     
                                  
-                                    <div id="<%= bedengan[i].name %>-<%=j%>" class="col-md-1 border border-dark rounded bg-secondary " style="height:30px; aspect-ratio:1/1"></div>
-
-                                  
-                                    
+                                    <button id="<%= bedengan[i].name %>-<%=j%>" class="btn btn-secondary col-md-1 border border-dark rounded " style="height:30px; aspect-ratio:1/1"></button>
                                 <% } %>
                             </div>
                             
@@ -158,6 +154,8 @@
             </div>
 
           <script src="/assets/static/js/plant-watering.js"></script>
+          <script src="/assets/static/js/plant-button-listener.js"></script>
+
 
           </div>
           

@@ -1,30 +1,68 @@
+let bedenganData = {}
+async function fetchPlantWateringQuery(i, j){
+    bedenganData = await fetch(`/api/bedengan/watering/?i=${i}&j=${j}`)
+    .then(res => res.json())
+}
+
 
 async function run() {
-    const bedenganData = await fetch("/api/bedengan")
+    bedenganData = await fetch("/api/bedengan")
         .then(res => res.json())
 
     let idx = 0
     let jdx = 0
-    function waterPlant() {
-        const plantElement = document.getElementById(`Bedengan ${idx + 1}-${jdx}`)
-        // console.log(`Bedengan ${idx + 1}-${jdx}`)
+
+
+    const buttonContainer = document.getElementById("button-container")
+
+// Add a click event listener to the container
+
+
+buttonContainer.addEventListener('click', function(event) {
+    // Check if the clicked element is a button with an id starting with "button-"
+    if (event.target && event.target.id) {
+        // The button was clicked, and you can access its ID like this:
+        const buttonId = event.target.id;
+        // console.log(`Button with ID ${buttonId} was clicked.`);
+        const plantElement = document.getElementById(buttonId)
         plantElement.classList.remove("bg-secondary")
         plantElement.classList.add("bg-success")    
-        if (bedenganData[i].watered.includes(jdx)) {
+        const numbers = buttonId.match(/\d+/g);
 
-        }
-        jdx++
-        if (jdx >= bedenganData[idx].plantCount) {
-            idx++
-            jdx = 0
-        }
-        if(idx == bedenganData.length){
-            clearInterval(waterPlantIntervalId)
+        if (numbers && numbers.length === 2) {
+            const i = parseInt(numbers[0], 10);
+            const j = parseInt(numbers[1], 10);
+            console.log(i,j)
+            fetchPlantWateringQuery(i, j)
+
+          } else {
+            console.log("Invalid input format");
         }
     }
-    console.table(bedenganData)
+});
 
-    const waterPlantIntervalId = setInterval(waterPlant, 1000)
+    }
+
+
+function waterPlant(bedenganData) {
+    // console.table(bedenganData)
+
+    for(let i=0; i<bedenganData.length; i++){
+        for(let j=0; j<bedenganData[i].plantCount; j++){
+            console.log(bedenganData[i].watered, j, bedenganData[i].watered.includes(j))
+            if(bedenganData[i].watered.includes(j)){
+                console.log("watering", i, j)
+                const plantElement = document.getElementById(`Bedengan ${i+1}-${j}`)
+                plantElement.classList.remove("bg-secondary")
+                plantElement.classList.add("bg-success")
+            }
+            
+        }
+    }
 }
-run();
+
+
+run().then(
+    ()=>{waterPlant(bedenganData)}
+);
 

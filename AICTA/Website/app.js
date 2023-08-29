@@ -40,8 +40,17 @@ app.get("/ui/chart/chartjs/:sensorId", (req, res) => {
 });
 
 app.get("/api/bedengan", (req, res) => {
+    console.table(bedenganData)
+
     res.json(bedenganData);
 })
+
+app.get("/api/bedengan/watering", (req, res) => {
+    let i = parseInt(req.query.i) - 1;
+    let j = parseInt(req.query.j);
+    bedenganData[i].watered.push(j);
+    res.json(bedenganData);
+}); 
 
 // let ipAddress = require("ip").address()
 // app.listen(port, ipAddress, () => {
