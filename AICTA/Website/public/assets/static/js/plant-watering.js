@@ -18,10 +18,13 @@ async function run() {
             idx++
             jdx = 0
         }
+        if(idx == bedenganData.length){
+            clearInterval(waterPlantIntervalId)
+        }
     }
     console.table(bedenganData)
 
-    setInterval(waterPlant, 100)
+    const waterPlantIntervalId = setInterval(waterPlant, 1000)
 }
 run();
 
