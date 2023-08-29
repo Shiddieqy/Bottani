@@ -128,8 +128,8 @@ void processPlantData() {
 }
 
 void getAndParseDataFromUART(){
-  if (Serial2.available()) {  // Read from Serial2
-    char c = Serial2.read();
+  if (Serial.available()) {  // Read from Serial2
+    char c = Serial.read();
     if (c == '#') {  // Start of data
       bufferIndex = 0;
     } else if (c == '$') {  // End of data
@@ -188,7 +188,7 @@ void printData(){
 
 void setup() {
   Serial.begin(115200);
-  Serial2.begin(115200);  // Initialize Serial2 on UART port 2
+  // Serial2.begin(115200);  // Initialize Serial2 on UART port 2
   Serial.println("UART Data Processing Example");
 
   motor.setUpPin();

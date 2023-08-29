@@ -1,10 +1,11 @@
 void setup(){
   Serial.begin(115200);
-  Ps3.attach(notify);
-  Ps3.attachOnConnect(onConnect);
+  Serial.println("Serial began");
+  // Ps3.attach(notify);
+  // Ps3.attachOnConnect(onConnect);
 //  Ps3.attachOnDisconnect(ESP.restart(););
   
-  Ps3.begin("00:1b:10:00:2a:ec");
+  // Ps3.begin("00:1b:10:00:2a:ec");
 //  while(!Ps3.isConnected()){
 //    
 //  }

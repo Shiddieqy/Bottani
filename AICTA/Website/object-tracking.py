@@ -4,7 +4,6 @@ import time
 import requests
 #import serial
 
-server_url = 'http://localhost:3000/live'
 
 # Define the serial port and baud rate
 # serial_port = '/dev/ttyTHS1'
@@ -26,6 +25,12 @@ server_url = 'http://localhost:3000/live'
 
 # Wait a second to let the port initialize
 # time.sleep(1)
+import socket   
+hostname=socket.gethostname()   
+IPAddr=socket.gethostbyname(hostname)   
+
+server_url = "http://{IPaddr}:3000/live".format(IPaddr=IPAddr)
+
 
 cv2.namedWindow("Track")
 cv2.resizeWindow("Track",700,512)

@@ -10,7 +10,7 @@ const port = 3000;
 const bodyParser = require('body-parser'); // Import body-parser
 const fs = require("fs")
 live.use(express.json({ limit: '10mb' })); // Enable JSON parsing with a 10MB limit
-const sensorsData = require('./sensors');
+const sensorsData = require('./bedengan');
 
 
 function runOpenCvPythonScript(){

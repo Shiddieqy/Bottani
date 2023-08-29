@@ -6,14 +6,25 @@ void loop(){
 ////      sampling_track();
 ////      sampling_spray();
 ////  }
-  if ((millis()-sensor_timer)>ts_sensor && Ps3.isConnected()){
-      Ps3.setPlayer(player);
-      if(player >= 4 or player <=1){
-        addition = addition*-1;
-      }
-      player += addition;
-      sensor_timer = millis();
-  }
+  // if ((millis()-UART_timer)>ts_UART){
+  //     // printData();
+  //     UART_timer = millis();
+  // }
+  Serial.println("test");
+      getAndParseDataFromUART();
+
+  // if ((millis()-sensor_timer)>ts_sensor && Ps3.isConnected()){
+
+  //     getAndParseDataFromUART();
+
+  //     Ps3.setPlayer(player);
+  //     if(player >= 4 or player <=1){
+  //       addition = addition*-1;
+  //     }
+  //     player += addition;
+  //     sensor_timer = millis();
+      
+  // }
 
 
 //        return;

@@ -18,3 +18,4 @@
 
 #define ts_sensor 500
 #define ts_button 100
+#define ts_UART 100

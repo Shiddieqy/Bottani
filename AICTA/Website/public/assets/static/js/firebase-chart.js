@@ -14,7 +14,7 @@ const database = firebase.database();
 const sensorRef = database.ref("sensor");
 
 // Membuat chart untuk suhu
-const tempChartCtx = document.getElementById("tempChart").getContext("2d");
+const tempChartCtx = document.getElementById("temperature-chart").getContext("2d");
 const tempChart = new Chart(tempChartCtx, {
     type: 'line',
     data: {
@@ -38,7 +38,7 @@ const tempChart = new Chart(tempChartCtx, {
 });
 
 // Membuat chart untuk kelembaban
-const humidityChartCtx = document.getElementById("humidityChart").getContext("2d");
+const humidityChartCtx = document.getElementById("humidity-chart").getContext("2d");
 const humidityChart = new Chart(humidityChartCtx, {
     type: 'line',
     data: {
@@ -62,7 +62,7 @@ const humidityChart = new Chart(humidityChartCtx, {
 });
 
 // Membuat chart untuk kelembaban tanah
-const soilMoistureChartCtx = document.getElementById("soilMoistureChart").getContext("2d");
+const soilMoistureChartCtx = document.getElementById("soil-mosture-chart").getContext("2d");
 const soilMoistureChart = new Chart(soilMoistureChartCtx, {
     type: 'line',
     data: {
@@ -91,7 +91,7 @@ setInterval(() => {
         const sensorData = snapshot.val();
         const waktuSekarang = new Date().toLocaleTimeString();
 
-        // Memperbarui chart suhu
+        // // Memperbarui chart suhu
         tempChart.data.labels.push(waktuSekarang);
         tempChart.data.datasets[0].data.push(sensorData.temperature);
 

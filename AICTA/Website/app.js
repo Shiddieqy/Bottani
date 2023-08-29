@@ -5,8 +5,6 @@ const app = express();
 const port = 3000;
 const bodyParser = require('body-parser'); // Import body-parser
 const fs = require("fs")
-app.use(express.json({ limit: '10mb' })); // Enable JSON parsing with a 10MB limit
-
 
 // Set up EJS as the view engine
 app.set('view engine', 'ejs');
@@ -16,19 +14,18 @@ app.set('views', __dirname + '/views');
 app.use(express.static('public'));
 app.use(bodyParser.raw({ type: 'image/jpeg', limit: '10mb' }));
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
-const sensorsData = require('./sensors');
+const bedenganData = require('./bedengan');
 const liveRouter = require('./live');
 
 // Use the liveRouter for all /live routes
 app.use('/live', liveRouter);
 
-app.locals.sensors = sensorsData;
+app.locals.bedengan = bedenganData;
 
 
 // Route to render the main page
 app.get('/', (req, res) => {
-
-    res.render('index', { layout: 'layout.ejs', sensors: sensorsData });
+    res.render('index', { layout: 'layout.ejs', bedengan: bedenganData });
     console.log("root")
 });
 
@@ -39,14 +36,22 @@ app.get("/ui/chart/chartjs", (req, res) => {
 
 app.get("/ui/chart/chartjs/:sensorId", (req, res) => {
     const sensorId = req.params.sensorId;
-
-
-    res.render('ui-chart-chartjs', { layout: 'layout.ejs', id: sensorId, sensors: sensorsData });
+    res.render('ui-chart-chartjs', { layout: 'layout.ejs', id: sensorId, bedengan: bedenganData });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://10.32.101.113:${port}`);
-});
+app.get("/api/bedengan", (req, res) => {
+    res.json(bedenganData);
+})
 
+// let ipAddress = require("ip").address()
+// app.listen(port, ipAddress, () => {
+//   console.log(`Server is running on http://${ipAddress}:${port}`);
+// });
+
+
+
+app.listen(port, ()=>{
+    console.log(`Server is running on http://localhost:${port}`)
+})
 
 
