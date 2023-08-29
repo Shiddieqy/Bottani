@@ -7,7 +7,7 @@ async function run() {
     let jdx = 0
     function waterPlant() {
         const plantElement = document.getElementById(`Bedengan ${idx + 1}-${jdx}`)
-        console.log(`Bedengan ${idx + 1}-${jdx}`)
+        // console.log(`Bedengan ${idx + 1}-${jdx}`)
         plantElement.classList.remove("bg-secondary")
         plantElement.classList.add("bg-success")    
         if (bedenganData[i].watered.includes(jdx)) {

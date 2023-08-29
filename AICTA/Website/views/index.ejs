@@ -10,7 +10,7 @@
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-
+    <script src="https://www.amcharts.com/lib/4/themes/dark.js"></script>
 
     <link rel="stylesheet" href="../assets/compiled/css/app.css" />
     <link rel="stylesheet" href="../assets/compiled/css/app-dark.css" />
@@ -24,6 +24,9 @@
       .custom-min-height{
           min-height: 150px; /* Adjust the height as needed */
       }
+
+
+      
     </style>
   </head>
 
@@ -36,20 +39,83 @@
           </a>
         </header>
 
+        <div class="page-header p-3">
+          <h3>Dashboard</h3>
+        </div>
 
 
         <div class="page-content">
 
-          <div class="alert alert-primary" role="alert">
-            This is a primary alert—check it out!
+          <div class="row" style="min-height: 200px;">
+            <div class="col">
+              <div class="card p-3 m-1 mb-3 bg-primary border border-primary text-primary" style="min-height: 100px; --bs-bg-opacity: .2;">
+                <h5 class="card-title m-0 text-primary">
+                  Header
+                </h5>
+                <hr class="rounded mt-2 mb-2" style="  border-top: 3px solid #3B71CA; border-radius: 2px; --bs-bg-opacity: 1.0"/>
+                <div class="card-body p-0">
+                  Primary card 
+                </div>
+              </div>
+              <div class="card p-3 m-1 mb-3 bg-warning border border-warning text-warning" style="min-height: 100px; --bs-bg-opacity: .2;">
+                <h5 class="card-title m-0 text-warning">
+                  Header
+                </h5>
+                <hr class="rounded mt-2 mb-2" style="  border-top: 3px solid #E4A11B; border-radius: 2px; --bs-bg-opacity: 1.0"/>
+                <div class="card-body p-0">
+                  Warning card 
+                </div>
+              </div>
+              <div class="card p-3 m-1 mb-3 bg-danger border border-danger text-danger" style="min-height: 100px; --bs-bg-opacity: .2;">
+                <h5 class="card-title m-0 text-danger">
+                  Header
+                </h5>
+                <hr class="rounded mt-2 mb-2" style="  border-top: 3px solid #DC4C64; border-radius: 2px; --bs-bg-opacity: 1.0"/>
+                <div class="card-body p-0">
+                  Danger Card
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card p-3 m-1 mb-3 bg-primary border border-primary text-primary" style="min-height: 100px; --bs-bg-opacity: .2;">
+                <h5 class="card-title m-0 text-primary">
+                  Header
+                </h5>
+                <hr class="rounded mt-2 mb-2" style="  border-top: 3px solid #3B71CA; border-radius: 2px; --bs-bg-opacity: 1.0"/>
+                <div class="card-body p-0">
+                  Primary Card
+                </div>
+              </div>
+              <div class="card p-3 m-1 mb-3 bg-warning border border-warning text-warning" style="min-height: 100px; --bs-bg-opacity: .2;">
+                <h5 class="card-title m-0 text-warning">
+                  Header
+                </h5>
+                <hr class="rounded mt-2 mb-2" style="  border-top: 3px solid #E4A11B; border-radius: 2px; --bs-bg-opacity: 1.0"/>
+                <div class="card-body p-0">
+                  Warning Card
+                </div>
+              </div>
+              <div class="card p-3 m-1 mb-3 bg-danger border border-danger text-danger" style="min-height: 100px; --bs-bg-opacity: .2;">
+                <h5 class="card-title m-0 text-danger">
+                  Header
+                </h5>
+                <hr class="rounded mt-2 mb-2" style="  border-top: 3px solid #DC4C64; border-radius: 2px; --bs-bg-opacity: 1.0"/>
+                <div class="card-body p-0">
+                  Danger Card
+                </div>
+              </div>
+            </div>
           </div>
+          
+
           <div class = "row d-flex align-items-center justify-content-center h-100 w-100">
-              <div class = "w-50 h-10 d-inline-block">
+              <div class = "w-100 h-10 d-inline-block">
                 <div id="chartdiv" 
                 style="        
                 width: 100%;
                 height: 500px;
-                max-width: 100%;"></div>
+                max-width: 100%;
+                color:white"></div>
               </div>
           </div>
 
@@ -57,7 +123,7 @@
           <div class="container">
 
 
-            <div class="row  ">
+            <div class="row ">
               <% for (let i = 0; i < bedengan.length; i++) { %>
                 <% if (i % 3 === 0 && i !== 0) { %>
                     </div><div class="row">
@@ -70,10 +136,10 @@
                         <div class="card-body p-0 h-100">
 
                             <div class="container-fluid p-2">
-                              <div class="row w-100" style="margin:auto" style="width:400px">
+                              <div class="row w-100 align-items-center justify-content-center" style="margin:auto" style="width:400px">
                                 <% for (let j = 0; j < bedengan[i].plantCount; j++){ %>
-                                    <% if (j % 12 === 0 && j !== 0) { %>
-                                        </div><div class="row w-100" style="margin:auto">
+                                    <% if (j % (Math.ceil(bedengan[i].plantCount/2)) === 0 && j !== 0) { %>
+                                        </div><div class="row w-100 align-items-center justify-content-center" style="margin:auto">
                                     <% } %>
                                     
                                  

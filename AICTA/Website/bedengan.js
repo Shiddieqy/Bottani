@@ -39,6 +39,9 @@ function getRandomInt(min, max) {
 
 for(let i = 0; i < bedenganData.length; i++){
     bedenganData[i].plantCount = getRandomInt(maxPlantInBedengan/2, maxPlantInBedengan);
+    if(bedenganData[i].plantCount % 2 != 0){
+        bedenganData[i].plantCount++;
+    }
     bedenganData[i].watered = []
         for(let j = 0; j < bedenganData[i].plantCount; j++){
             bedenganData[i].watered.push(j);

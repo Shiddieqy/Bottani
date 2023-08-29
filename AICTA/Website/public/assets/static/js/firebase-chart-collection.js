@@ -11,7 +11,7 @@
  */
 
 // Themes begin
-am4core.useTheme(am4themes_animated);
+am4core.useTheme(am4themes_dark);
 // Themes end
 
 
@@ -19,19 +19,27 @@ am4core.useTheme(am4themes_animated);
 // Create chart instance
 var chart = am4core.create("chartdiv", am4charts.XYChart);
 
+var title = chart.titles.create();
+title.text = "Data Summary";
+title.fontSize = 25;
+title.marginBottom = 30;
+
 // Create axes
 var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
 var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
 for (var i = 0; i < 10; i++) {
-	createSeries("value" + i, "Series With an eventual very long name #" + i);
+	createSeries("value" + i, "Bedengan " + i);
 }
 
 // Create series
 function createSeries(s, name) {
 	var series = chart.series.push(new am4charts.LineSeries());
-    series.tooltip.getFillFromObject = false;
+    series.tooltip.getFillFromObject = true;
 
+    // Set up the tooltip for the series
+    series.tooltipText = "{name}: [bold]{valueY}[/]";
+	
 	series.dataFields.valueY = "value" + s;
 	series.dataFields.dateX = "date";
 	series.name = name;
@@ -63,6 +71,7 @@ function createSeries(s, name) {
 	}
 
 	series.data = data;
+
 	return series;
 }
 
