@@ -12,7 +12,7 @@ int sensor_state=0;
 int player = 2;
 int addition = 1;
 unsigned long sensor_timer = millis();
-//unsigned long button_timer = millis();
+unsigned long button_timer = millis();
 
 
 int btn;

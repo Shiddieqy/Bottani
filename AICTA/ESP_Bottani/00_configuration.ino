@@ -1,10 +1,10 @@
 #define PWM_FREQUENCY 5000
 #define PWM_RES 8
 
-#define PWM_R 200
-#define PWM_L 200
+#define PWM_R 255
+#define PWM_L 255
 #define PWM_X 100
-#define PWM_Z 100
+#define PWM_Z 180
 #define PWM_S 80
 #define PWM_BOOST 50
 
@@ -13,8 +13,8 @@
 #define L_REVERSE 27
 
 #define R_PWM 15
-#define R_FORWARD 4
-#define R_REVERSE 2
+#define R_FORWARD 2
+#define R_REVERSE 4
 
 
 #define X_PWM 32
@@ -23,8 +23,8 @@
 
 
 #define Z_PWM 19
-#define Z_FORWARD 21
-#define Z_REVERSE 3
+#define Z_FORWARD 18
+#define Z_REVERSE 21
 
 #define S_PWM 5
 #define S_FORWARD 22

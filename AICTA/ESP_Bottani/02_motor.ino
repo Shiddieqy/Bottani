@@ -6,6 +6,17 @@ int prev_cmd[N_Motor] = {0,0,0,0,0};
 int increment = 15;
 
 void runmotor(int channel,int cmd){
+  ledcWrite(channel, abs(cmd));
+  if (cmd>0){
+    digitalWrite(forward[channel],HIGH);
+    digitalWrite(m_reverse[channel],LOW);
+  }
+  else{
+    digitalWrite(forward[channel],LOW);
+    digitalWrite(m_reverse[channel],HIGH);
+  }
+}
+void runmotortrack(int channel,int cmd){
   if (abs(cmd)>255){
     cmd = 255*abs(cmd)/cmd;
   }

@@ -2,8 +2,8 @@ int left_value = 0;
 int right_value = 0;
 
 void runtrack(int left,int right){
-  runmotor(L,PWM_L*left);
-  runmotor(R,PWM_R*right);
+  runmotortrack(L,PWM_L*left);
+  runmotortrack(R,PWM_R*right);
 }
 void sampling_track(){
   left_value = 0;

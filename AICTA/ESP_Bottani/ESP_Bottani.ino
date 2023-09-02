@@ -17,4 +17,4 @@
 #define M_TOPIC "sensor/Moisture"
 
 #define ts_sensor 500
-#define ts_button 100
+#define ts_button 50
