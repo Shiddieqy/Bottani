@@ -2,7 +2,7 @@ import serial
 import time
 
 # Define the serial port and baud rate
-serial_port = '/dev/ttyTHS1'
+serial_port = '/COM6'
 baud_rate = 115200
 
 
@@ -15,16 +15,6 @@ import numpy as np
 import time
 import serial
 
-# serial_port = serial.Serial(
-#     port="/dev/ttyTHS1",
-#     baudrate=115200,
-#     bytesize=serial.EIGHTBITS,
-#     parity=serial.PARITY_NONE,
-#     stopbits=serial.STOPBITS_ONE,
-# )
-
-# Wait a second to let the port initialize
-# time.sleep(1)
 
 cv2.namedWindow("Track")
 cv2.resizeWindow("Track",700,512)
@@ -39,7 +29,7 @@ cv2.createTrackbar('sat min', 'Track', 0,255,track)
 cv2.createTrackbar('sat max', 'Track', 255,255,track)
 cv2.createTrackbar('val min', 'Track', 0,255,track)
 cv2.createTrackbar('val max', 'Track', 255,255,track)
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 tracker = cv2.legacy.TrackerMOSSE_create()
 # cap = cv2.VideoCapture("video.mp4")
 width  = cap.get(3)   # float `width`
