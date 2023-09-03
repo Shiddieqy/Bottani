@@ -1,0 +1,478 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD21\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">02/09/2023</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">13.19.54</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:03</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc" class="file"><acronym title="C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc">C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">46</td></tr>
+</table>
+</td>
+</table><a name="IDBJNH5IHVZXPBOEMIEKNAEFET2LANFAQGYWPUIYHB4OAT2HOUSD3N"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAMAK0HHK3WN5MDF41DEZNTNVXHCEVIHGIGTSCSB34KS3ECZX2NNB">Clearance Constraint (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTJW1YO4RCA0QMRKFGVM0LCOKKPZIOV2AJ20XPHLSPM1W0OD21TB">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDHIQPMJOPZWZXOSYZWXIKY1LZMNXT13FOELIOLCJKPBGLVS41LMWF">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDL1EVWXFFXCOML2KILKQJANNSMBKZECAIQIET54KUEXCRBAHYPZVI">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDH0DB50PZZIUPHANE0TQA0VX5EDVHNUYHBQD1AKJRY2KYTKCRRPEC">Width Constraint (Min=10mil) (Max=30mil) (Preferred=20mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDEEWTAUL5RP0OHQY05I5V5W3JBFSYPJM3YDMJTQBFO3IJKTTJK3WL">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDEYXTKT0VGXMEBWN0KRODLMZNAEPRMDNXZ40WQUCNTUG4MMBCK5TP">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDWSQPP4RK1OXKK1UM3O4BCF5PINTUFP2RXDA3CFKAJPVD0Z5XFWUP">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDSRONM00JUFETB2CJDBUDJ20QOJWX2CJU3XTDZHLPD0JDTSPEKFOH">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQXOBONAYG50TPDFP2PUW2RSU4LFXAW53QL1BKK0IVHHVL2ESZBF">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</a></td>
+<td class="column2">35</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID3XZ4QGHRCZCSOBIKWM41AFTNKHQPEWE20U1KL0FLMSFBTHKJSF1J">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">6</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDDIPHDTKGA2MUKTHIKF1WH0XJXHOH014BLPRLGEGATBPIH0KTINVN">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDGILA3MRCSYUEH1UBXPKTW2PRPN1BNIBGAKMTPZMGWMDTFFOACZSN">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">46</td>
+</tr>
+</table><br><a name="IDEYXTKT0VGXMEBWN0KRODLMZNAEPRMDNXZ40WQUCNTUG4MMBCK5TP"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1275.32mil|Location2.X=1394.68mil|Location1.Y=1705.32mil|Location2.Y=1824.68mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1275.32mil|Location2.X=1394.68mil|Location1.Y=1705.32mil|Location2.Y=1824.68mil|Absolute=True">Hole Size Constraint: (118.11mil &gt; 100mil) Pad Free-46(1335mil,1765mil) on Multi-Layer Actual Hole Size = 118.11mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1275.32mil|Location2.X=1394.68mil|Location1.Y=4200.32mil|Location2.Y=4319.68mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1275.32mil|Location2.X=1394.68mil|Location1.Y=4200.32mil|Location2.Y=4319.68mil|Absolute=True">Hole Size Constraint: (118.11mil &gt; 100mil) Pad Free-46(1335mil,4260mil) on Multi-Layer Actual Hole Size = 118.11mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3915.32mil|Location2.X=4034.68mil|Location1.Y=4200.32mil|Location2.Y=4319.68mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3915.32mil|Location2.X=4034.68mil|Location1.Y=4200.32mil|Location2.Y=4319.68mil|Absolute=True">Hole Size Constraint: (118.11mil &gt; 100mil) Pad Free-46(3975mil,4260mil) on Multi-Layer Actual Hole Size = 118.11mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3925.32mil|Location2.X=4044.68mil|Location1.Y=1705.32mil|Location2.Y=1824.68mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3925.32mil|Location2.X=4044.68mil|Location1.Y=1705.32mil|Location2.Y=1824.68mil|Absolute=True">Hole Size Constraint: (118.11mil &gt; 100mil) Pad Free-46(3985mil,1765mil) on Multi-Layer Actual Hole Size = 118.11mil</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDSRONM00JUFETB2CJDBUDJ20QOJWX2CJU3XTDZHLPD0JDTSPEKFOH"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1880.498mil|Location2.X=1891.748mil|Location1.Y=3297.775mil|Location2.Y=3309.025mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1880.498mil|Location2.X=1891.748mil|Location1.Y=3297.775mil|Location2.Y=3309.025mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2mil &lt; 10mil) Between Pad ESP32-6(1930mil,3310mil) on Multi-Layer And Via (1856.457mil,3298.938mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [2mil] / [Bottom Solder] Mask Sliver [2mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDQXOBONAYG50TPDFP2PUW2RSU4LFXAW53QL1BKK0IVHHVL2ESZBF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=3137.789mil|Location2.Y=3149.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=3137.789mil|Location2.Y=3149.039mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorL1-3(3890mil,3135mil) on Multi-Layer And Track (3934mil,3145mil)(3934mil,3325mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=3137.789mil|Location2.Y=3149.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=3137.789mil|Location2.Y=3149.039mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorL1-3(3890mil,3135mil) on Multi-Layer And Track (3934mil,3145mil)(4004mil,3145mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3921.383mil|Location2.X=3932.633mil|Location1.Y=3229.375mil|Location2.Y=3240.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3921.383mil|Location2.X=3932.633mil|Location1.Y=3229.375mil|Location2.Y=3240.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.984mil &lt; 10mil) Between Pad MotorL1-5(3890mil,3235mil) on Multi-Layer And Track (3934mil,3145mil)(3934mil,3325mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.984mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=3320.961mil|Location2.Y=3332.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=3320.961mil|Location2.Y=3332.211mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorL1-7(3890mil,3335mil) on Multi-Layer And Track (3934mil,3145mil)(3934mil,3325mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=3320.961mil|Location2.Y=3332.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=3320.961mil|Location2.Y=3332.211mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorL1-7(3890mil,3335mil) on Multi-Layer And Track (3934mil,3325mil)(4004mil,3325mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=3137.789mil|Location2.Y=3149.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=3137.789mil|Location2.Y=3149.039mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorL2-3(3430mil,3135mil) on Multi-Layer And Track (3474mil,3145mil)(3474mil,3325mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=3137.789mil|Location2.Y=3149.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=3137.789mil|Location2.Y=3149.039mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorL2-3(3430mil,3135mil) on Multi-Layer And Track (3474mil,3145mil)(3544mil,3145mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3461.383mil|Location2.X=3472.633mil|Location1.Y=3229.375mil|Location2.Y=3240.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3461.383mil|Location2.X=3472.633mil|Location1.Y=3229.375mil|Location2.Y=3240.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.984mil &lt; 10mil) Between Pad MotorL2-5(3430mil,3235mil) on Multi-Layer And Track (3474mil,3145mil)(3474mil,3325mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.984mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=3320.961mil|Location2.Y=3332.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=3320.961mil|Location2.Y=3332.211mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorL2-7(3430mil,3335mil) on Multi-Layer And Track (3474mil,3145mil)(3474mil,3325mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=3320.961mil|Location2.Y=3332.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=3320.961mil|Location2.Y=3332.211mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorL2-7(3430mil,3335mil) on Multi-Layer And Track (3474mil,3325mil)(3544mil,3325mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=2297.789mil|Location2.Y=2309.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=2297.789mil|Location2.Y=2309.039mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorR1-3(3430mil,2295mil) on Multi-Layer And Track (3474mil,2305mil)(3474mil,2485mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=2297.789mil|Location2.Y=2309.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=2297.789mil|Location2.Y=2309.039mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorR1-3(3430mil,2295mil) on Multi-Layer And Track (3474mil,2305mil)(3544mil,2305mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3461.383mil|Location2.X=3472.633mil|Location1.Y=2389.375mil|Location2.Y=2400.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3461.383mil|Location2.X=3472.633mil|Location1.Y=2389.375mil|Location2.Y=2400.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.984mil &lt; 10mil) Between Pad MotorR1-5(3430mil,2395mil) on Multi-Layer And Track (3474mil,2305mil)(3474mil,2485mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.984mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=2480.961mil|Location2.Y=2492.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=2480.961mil|Location2.Y=2492.211mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorR1-7(3430mil,2495mil) on Multi-Layer And Track (3474mil,2305mil)(3474mil,2485mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=2480.961mil|Location2.Y=2492.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.984mil|Location2.X=3472.234mil|Location1.Y=2480.961mil|Location2.Y=2492.211mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorR1-7(3430mil,2495mil) on Multi-Layer And Track (3474mil,2485mil)(3544mil,2485mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=2297.789mil|Location2.Y=2309.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=2297.789mil|Location2.Y=2309.039mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorR2-3(3890mil,2295mil) on Multi-Layer And Track (3934mil,2305mil)(3934mil,2485mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=2297.789mil|Location2.Y=2309.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=2297.789mil|Location2.Y=2309.039mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorR2-3(3890mil,2295mil) on Multi-Layer And Track (3934mil,2305mil)(4004mil,2305mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3921.383mil|Location2.X=3932.633mil|Location1.Y=2389.375mil|Location2.Y=2400.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3921.383mil|Location2.X=3932.633mil|Location1.Y=2389.375mil|Location2.Y=2400.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.984mil &lt; 10mil) Between Pad MotorR2-5(3890mil,2395mil) on Multi-Layer And Track (3934mil,2305mil)(3934mil,2485mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.984mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=2480.961mil|Location2.Y=2492.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=2480.961mil|Location2.Y=2492.211mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorR2-7(3890mil,2495mil) on Multi-Layer And Track (3934mil,2305mil)(3934mil,2485mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=2480.961mil|Location2.Y=2492.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.984mil|Location2.X=3932.234mil|Location1.Y=2480.961mil|Location2.Y=2492.211mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorR2-7(3890mil,2495mil) on Multi-Layer And Track (3934mil,2485mil)(4004mil,2485mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3550.961mil|Location2.X=3562.211mil|Location1.Y=3970.984mil|Location2.Y=3982.234mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3550.961mil|Location2.X=3562.211mil|Location1.Y=3970.984mil|Location2.Y=3982.234mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorS-3(3565mil,3940mil) on Multi-Layer And Track (3375mil,3984mil)(3555mil,3984mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3550.961mil|Location2.X=3562.211mil|Location1.Y=3970.984mil|Location2.Y=3982.234mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3550.961mil|Location2.X=3562.211mil|Location1.Y=3970.984mil|Location2.Y=3982.234mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorS-3(3565mil,3940mil) on Multi-Layer And Track (3555mil,3984mil)(3555mil,4054mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3459.375mil|Location2.X=3470.625mil|Location1.Y=3971.383mil|Location2.Y=3982.633mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3459.375mil|Location2.X=3470.625mil|Location1.Y=3971.383mil|Location2.Y=3982.633mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.984mil &lt; 10mil) Between Pad MotorS-5(3465mil,3940mil) on Multi-Layer And Track (3375mil,3984mil)(3555mil,3984mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.984mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3367.789mil|Location2.X=3379.039mil|Location1.Y=3970.984mil|Location2.Y=3982.234mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3367.789mil|Location2.X=3379.039mil|Location1.Y=3970.984mil|Location2.Y=3982.234mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorS-7(3365mil,3940mil) on Multi-Layer And Track (3375mil,3984mil)(3375mil,4054mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3367.789mil|Location2.X=3379.039mil|Location1.Y=3970.984mil|Location2.Y=3982.234mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3367.789mil|Location2.X=3379.039mil|Location1.Y=3970.984mil|Location2.Y=3982.234mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorS-7(3365mil,3940mil) on Multi-Layer And Track (3375mil,3984mil)(3555mil,3984mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=2900.961mil|Location2.Y=2912.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=2900.961mil|Location2.Y=2912.211mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorX-3(1390mil,2915mil) on Multi-Layer And Track (1276mil,2905mil)(1346mil,2905mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=2900.961mil|Location2.Y=2912.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=2900.961mil|Location2.Y=2912.211mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorX-3(1390mil,2915mil) on Multi-Layer And Track (1346mil,2725mil)(1346mil,2905mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.367mil|Location2.X=1358.617mil|Location1.Y=2809.375mil|Location2.Y=2820.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.367mil|Location2.X=1358.617mil|Location1.Y=2809.375mil|Location2.Y=2820.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.984mil &lt; 10mil) Between Pad MotorX-5(1390mil,2815mil) on Multi-Layer And Track (1346mil,2725mil)(1346mil,2905mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.984mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=2717.789mil|Location2.Y=2729.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=2717.789mil|Location2.Y=2729.039mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorX-7(1390mil,2715mil) on Multi-Layer And Track (1276mil,2725mil)(1346mil,2725mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=2717.789mil|Location2.Y=2729.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=2717.789mil|Location2.Y=2729.039mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorX-7(1390mil,2715mil) on Multi-Layer And Track (1346mil,2725mil)(1346mil,2905mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=3765.961mil|Location2.Y=3777.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=3765.961mil|Location2.Y=3777.211mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorZ-3(1390mil,3780mil) on Multi-Layer And Track (1276mil,3770mil)(1346mil,3770mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=3765.961mil|Location2.Y=3777.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=3765.961mil|Location2.Y=3777.211mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorZ-3(1390mil,3780mil) on Multi-Layer And Track (1346mil,3590mil)(1346mil,3770mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.367mil|Location2.X=1358.617mil|Location1.Y=3674.375mil|Location2.Y=3685.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.367mil|Location2.X=1358.617mil|Location1.Y=3674.375mil|Location2.Y=3685.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.984mil &lt; 10mil) Between Pad MotorZ-5(1390mil,3680mil) on Multi-Layer And Track (1346mil,3590mil)(1346mil,3770mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.984mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=3582.789mil|Location2.Y=3594.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=3582.789mil|Location2.Y=3594.039mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorZ-7(1390mil,3580mil) on Multi-Layer And Track (1276mil,3590mil)(1346mil,3590mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=3582.789mil|Location2.Y=3594.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1347.766mil|Location2.X=1359.016mil|Location1.Y=3582.789mil|Location2.Y=3594.039mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.119mil &lt; 10mil) Between Pad MotorZ-7(1390mil,3580mil) on Multi-Layer And Track (1346mil,3590mil)(1346mil,3770mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.119mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID3XZ4QGHRCZCSOBIKWM41AFTNKHQPEWE20U1KL0FLMSFBTHKJSF1J"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1771.176mil|Location2.X=1778.843mil|Location1.Y=2141.679mil|Location2.Y=2149.345mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1771.176mil|Location2.X=1778.843mil|Location1.Y=2141.679mil|Location2.Y=2149.345mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "Fuse" (1775.01mil,2334.964mil) on Top Overlay And Track (1769.37mil,2145.512mil)(1804.804mil,2145.512mil) on Top Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1800.971mil|Location2.X=1808.637mil|Location1.Y=2330.655mil|Location2.Y=2338.321mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1800.971mil|Location2.X=1808.637mil|Location1.Y=2330.655mil|Location2.Y=2338.321mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "Fuse" (1775.01mil,2334.964mil) on Top Overlay And Track (1769.37mil,2334.488mil)(1804.804mil,2334.488mil) on Top Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1800.971mil|Location2.X=1808.637mil|Location1.Y=2330.655mil|Location2.Y=2338.321mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1800.971mil|Location2.X=1808.637mil|Location1.Y=2330.655mil|Location2.Y=2338.321mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "Fuse" (1775.01mil,2334.964mil) on Top Overlay And Track (1804.804mil,2145.512mil)(1804.804mil,2334.488mil) on Top Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1857.018mil|Location2.X=1868.268mil|Location1.Y=3980.435mil|Location2.Y=3991.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1857.018mil|Location2.X=1868.268mil|Location1.Y=3980.435mil|Location2.Y=3991.685mil|Absolute=True">Silk To Silk Clearance Constraint: (5.306mil &lt; 10mil) Between Text "J3" (1795.01mil,4026.047mil) on Top Overlay And Track (1867.796mil,2196.22mil)(1867.796mil,4202.126mil) on Top Overlay Silk Text to Silk Clearance [5.306mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1857.018mil|Location2.X=1868.268mil|Location1.Y=3980.435mil|Location2.Y=3991.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1857.018mil|Location2.X=1868.268mil|Location1.Y=3980.435mil|Location2.Y=3991.685mil|Absolute=True">Silk To Silk Clearance Constraint: (5.306mil &lt; 10mil) Between Text "J3" (1795.01mil,4026.047mil) on Top Overlay And Track (1867.796mil,2196.22mil)(1867.796mil,4202.126mil) on Top Overlay Silk Text to Silk Clearance [5.306mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1756.167mil|Location2.X=1763.833mil|Location1.Y=3385.094mil|Location2.Y=3392.761mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Ahmad Aziz\Data\Project\RoT\Bottani\AICTA\PCB\PCB Bottani.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1756.167mil|Location2.X=1763.833mil|Location1.Y=3385.094mil|Location2.Y=3392.761mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "J4" (1765.01mil,3408.921mil) on Top Overlay And Track (1760mil,3278.938mil)(1760mil,3478.938mil) on Top Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
