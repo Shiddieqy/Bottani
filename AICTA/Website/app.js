@@ -40,7 +40,6 @@ app.get("/ui/chart/chartjs/:sensorId", (req, res) => {
 });
 
 app.get("/api/bedengan", (req, res) => {
-    console.table(bedenganData)
 
     res.json(bedenganData);
 })

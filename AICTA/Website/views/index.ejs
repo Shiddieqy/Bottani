@@ -120,41 +120,7 @@
           </div>
 
           <script src="/assets/static/js/firebase-chart-collection.js"></script>
-          <div class="container" id="button-container">
-
-
-            <div class="row ">
-              <% for (let i = 0; i < bedengan.length; i++) { %>
-                <% if (i % 3 === 0 && i !== 0) { %>
-                    </div><div class="row">
-                <% } %>
-                <div class="col-md-4" style="height:150px; margin-bottom: 50px;">
-                    <div class="card p-0 custom-min-height">
-                        <h5 class="card-title p-3 m-0 h-20">
-                          <%= bedengan[i].name %>
-                        </h5>
-                        <div class="card-body p-0 h-100">
-                            <div class="container-fluid p-2">
-                              <div class="row w-100 align-items-center justify-content-center" style="margin:auto" style="width:400px">
-                                <% for (let j = 0; j < bedengan[i].plantCount; j++){ %>
-                                    <% if (j % (Math.ceil(bedengan[i].plantCount/2)) === 0 && j !== 0) { %>
-                                        </div><div class="row w-100 align-items-center justify-content-center" style="margin:auto">
-                                    <% } %>
-                                    
-                                 
-                                    <button id="<%= bedengan[i].name %>-<%=j%>" class="btn btn-secondary col-md-1 border border-dark rounded " style="height:30px; aspect-ratio:1/1"></button>
-                                <% } %>
-                            </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              <% } %>
-            </div>
-
-          <script src="/assets/static/js/plant-watering.js"></script>
-          <script src="/assets/static/js/plant-button-listener.js"></script>
+          
 
 
           </div>
