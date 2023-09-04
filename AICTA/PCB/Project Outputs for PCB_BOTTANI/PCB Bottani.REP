@@ -1,0 +1,205 @@
+*************************************************************
+FileName = PCB Bottani.GBR
+AutoAperture = True
+*************************************************************
+Generating : Mechanical 15
+      File : PCB Bottani.GM15
+
+    Adding Layer      : Mechanical 15
+
+
+Used DCodes :
+    D13
+    D37
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 13
+      File : PCB Bottani.GM13
+
+    Adding Layer      : Mechanical 13
+
+
+Used DCodes :
+    D10
+    D11
+    D13
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 1
+      File : PCB Bottani.GM1
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Keep-Out Layer
+      File : PCB Bottani.GKO
+
+    Adding Layer      : Keep-Out Layer
+
+
+Used DCodes :
+    D12
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : PCB Bottani.GBS
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+*************************************************************
+
+*************************************************************
+Generating : Top Solder
+      File : PCB Bottani.GTS
+
+    Adding Layer      : Top Solder
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : PCB Bottani.GTO
+
+    Adding Layer      : Top Overlay
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+*************************************************************
+
+*************************************************************
+Generating : Top Pad Master
+      File : PCB Bottani.GPT
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+*************************************************************
+
+*************************************************************
+Generating : Bottom Pad Master
+      File : PCB Bottani.GPB
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+*************************************************************
+
+*************************************************************
+Generating : Bottom Layer
+      File : PCB Bottani.GBL
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+    D36
+*************************************************************
+
+*************************************************************
+Generating : Top Layer
+      File : PCB Bottani.GTL
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+    D36
+*************************************************************
+
