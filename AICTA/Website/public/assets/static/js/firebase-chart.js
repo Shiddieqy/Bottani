@@ -84,12 +84,12 @@ const soilMoistureChart = new Chart(soilMoistureChartCtx, {
         }
     }
 });
-
+let interval = 1000 * 60 * 60 * 24 / 2; // 12 jam
 // Mendapatkan data dari Firebase dan memperbarui chart
 setInterval(() => {
     sensorRef.once('value', (snapshot) => {
         const sensorData = snapshot.val();
-        const waktuSekarang = new Date().toLocaleTimeString();
+        const waktuSekarang = new Date().toLocaleDateString();
 
         // // Memperbarui chart suhu
         tempChart.data.labels.push(waktuSekarang);
@@ -124,4 +124,4 @@ setInterval(() => {
 
         soilMoistureChart.update();
     });
-}, 2000);
+}, interval);

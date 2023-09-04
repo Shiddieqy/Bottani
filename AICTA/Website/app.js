@@ -56,8 +56,6 @@ app.get("/api/bedengan/watering", (req, res) => {
         bedenganData[i].watered = bedenganData[i].watered.filter(item => item !== j)
     }
     res.json(bedenganData);
-    console.table(bedenganData)
-
 }); 
 
 // let ipAddress = require("ip").address()
