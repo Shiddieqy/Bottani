@@ -29,8 +29,8 @@ import socket
 hostname=socket.gethostname()   
 IPAddr=socket.gethostbyname(hostname)   
 
-server_url = "http://{IPaddr}:3000/live".format(IPaddr=IPAddr)
-
+# server_url = "http://{IPaddr}:3000/live".format(IPaddr=IPAddr)
+server_url = "http://localhost:3000/live"
 
 cv2.namedWindow("Track")
 cv2.resizeWindow("Track",700,512)
