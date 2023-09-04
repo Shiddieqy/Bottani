@@ -5,6 +5,7 @@ const app = express();
 const port = 3000;
 const bodyParser = require('body-parser'); // Import body-parser
 const fs = require("fs")
+const url = require('url')
 
 // Set up EJS as the view engine
 app.set('view engine', 'ejs');
@@ -47,8 +48,16 @@ app.get("/api/bedengan", (req, res) => {
 app.get("/api/bedengan/watering", (req, res) => {
     let i = parseInt(req.query.i) - 1;
     let j = parseInt(req.query.j);
-    bedenganData[i].watered.push(j);
+    let isWatered = req.query.isWatered;
+    if(!(isWatered === 'false')){
+        bedenganData[i].watered.push(j);
+    }
+    else{
+        bedenganData[i].watered = bedenganData[i].watered.filter(item => item !== j)
+    }
     res.json(bedenganData);
+    console.table(bedenganData)
+
 }); 
 
 // let ipAddress = require("ip").address()
