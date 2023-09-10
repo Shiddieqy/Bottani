@@ -4,8 +4,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const bodyParser = require('body-parser'); // Import body-parser
-const fs = require("fs")
-const url = require('url')
+
 
 // Set up EJS as the view engine
 app.set('view engine', 'ejs');
