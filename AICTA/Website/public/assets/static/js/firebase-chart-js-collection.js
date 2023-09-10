@@ -126,3 +126,10 @@ chart.options.animation = false; // disables all animations
 chart.options.animations.colors = false; // disables animation defined by the collection of 'colors' properties
 chart.options.animations.x = false; // disables animation defined by the 'x' property
 chart.options.transitions.active.animation.duration = 0; // disables the animation for 'active' mode
+
+$("#show-all-chart-button").click(function() {
+    for(let i=0; i<m;i++){
+        chart.show(i)
+    }        
+  chart.update();
+});
