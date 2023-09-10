@@ -10,8 +10,8 @@ const m = 100 //number of data in each dataset
 const randRange = 100
 const meanValue = 50
 const fluctuateRange = meanValue/8
-const proportionOfHighFluctuationData = 0.2
-const highFluctuationRange = fluctuateRange*3
+const proportionOfHighFluctuationData = 0.05
+const highFluctuationRange = fluctuateRange*4
 
 function getDatesBetween(startDate, endDate) {
     const currentDate = new Date(startDate.getTime());
@@ -32,7 +32,7 @@ for(let i = 0; i < n; i++){
   const randValue = Math.random()
   for(let i = 0; i < m; i++){
     if(randValue > (1-proportionOfHighFluctuationData)){
-        data.push( meanValue - highFluctuationRange +  Math.random() * (highFluctuationRange+1)) 
+        data.push( meanValue - highFluctuationRange/2 +  Math.random() * (highFluctuationRange+1)) 
     }
     else{
         data.push( meanValue - fluctuateRange +  Math.random() * (fluctuateRange+1)) 
@@ -49,27 +49,39 @@ var today = new Date();
 var priorDate = new Date(new Date().setDate(today.getDate() - 30));
 
 const legendClickHandler = (e, legendItem, legend) => {
-    const index = legendItem.datasetIndex;
+    const index = parseInt(legendItem.datasetIndex);
     const ci = legend.chart;
-
-    if (ci.isDatasetVisible(index == 0 ? index+1 : index-1)) {
-        for(let i=0; i<ci.data.datasets.length; i++){
-            console.log(i)
-            if(i != index){
-                ci.hide(i);
-                legend.legendItems[i].hidden = true;
-            }
-        }
-    } else {
-        for(let i=0; i<ci.data.datasets.length; i++){
-            if(i != index){
-                ci.show(i);
-                legend.legendItems[i].hidden = false;
-            }
-        }
+    
+    if(legend.legendItems[index].hidden){
+        console.log("index: ", index)
         ci.show(index);
-        legendItem.hidden = false;
+        legend.legendItems[index].hidden = false;
     }
+    else{
+        if (legend.legendItems.filter((dataset)=>{return dataset.hidden}).length === 0) {
+            for(let i=0; i<ci.data.datasets.length; i++){
+                if(i != index && !legend.legendItems[i].hidden){
+                    ci.hide(i);
+                    legend.legendItems[i].hidden = true;
+                }
+            }
+        } 
+        else if(legend.legendItems.filter((dataset)=>{return !dataset.hidden}).length === 1){
+            for(let i=0; i<ci.data.datasets.length; i++){
+                if(i != index){
+                    ci.show(i);
+                    legend.legendItems[i].hidden = false;
+                }
+            }
+        }
+        else{
+            console.log("total hidden: ",legend.legendItems.filter((dataset)=>{return !dataset.hidden}).length)
+            console.log("hiding index: ", index)
+            ci.hide(index);
+            legend.legendItems[index].hidden = true;
+        }
+    }
+
 }
 
 
@@ -114,4 +126,3 @@ chart.options.animation = false; // disables all animations
 chart.options.animations.colors = false; // disables animation defined by the collection of 'colors' properties
 chart.options.animations.x = false; // disables animation defined by the 'x' property
 chart.options.transitions.active.animation.duration = 0; // disables the animation for 'active' mode
- 
