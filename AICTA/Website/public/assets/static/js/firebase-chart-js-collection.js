@@ -130,6 +130,7 @@ chart.options.transitions.active.animation.duration = 0; // disables the animati
 $("#show-all-chart-button").click(function() {
     for(let i=0; i<m;i++){
         chart.show(i)
+        chart.options.plugins.legend.hidden = false;
     }        
   chart.update();
 });

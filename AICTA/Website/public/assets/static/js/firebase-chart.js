@@ -1,7 +1,7 @@
 // Inisialisasi Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyDKLYQtt57t2TjhsmshGTE7WXbzfHfkeKE",
-    authDomain: "elevarm-iot.firebaseapp.com",
+    authDomain: "https://robot-bottani-default-rtdb.firebaseio.com/",
     databaseURL: "https://elevarm-iot-default-rtdb.firebaseio.com",
     projectId: "elevarm-iot",
     storageBucket: "elevarm-iot.appspot.com",
@@ -84,7 +84,8 @@ const soilMoistureChart = new Chart(soilMoistureChartCtx, {
         }
     }
 });
-let interval = 1000 * 60 * 60 * 24 / 2; // 12 jam
+// let interval = 1000 * 60 * 60 * 24 / 2; // 12 jam
+let interval = 1000
 // Mendapatkan data dari Firebase dan memperbarui chart
 setInterval(() => {
     sensorRef.once('value', (snapshot) => {

@@ -1,6 +1,6 @@
-
-
 const { spawn } = require('child_process');
+const sharp = require("sharp")
+
 let pythonProcess;
 
 const path = require("path")
@@ -69,15 +69,47 @@ live.get('/', (req, res) => {
 // Endpoint to serve the latest image data
 live.get('/latest-image', (req, res) => {
     const imagePath = path.join(__dirname, 'public', 'image.jpeg');
+    const startingScreenPath = path.join(__dirname, 'public', 'starting-screen.jpeg')
+    const startingScreenResizedPath = path.join(__dirname, 'public', 'starting-screen-resized.jpeg')
+    if(fs.existsSync(imagePath)){
+        fs.readFile(imagePath, (err, data) => {
+            if (err) {
+                console.log("no latest image")
+                
+            } else {
+                res.setHeader('Content-Type', 'image/jpeg');
+                res.send(data);
+            }
+        });
+    }
+    else{
 
-    fs.readFile(imagePath, (err, data) => {
-        if (err) {
-            res.status(404).send('No image data available.');
-        } else {
-            res.setHeader('Content-Type', 'image/jpeg');
-            res.send(data);
+        if(!fs.existsSync(startingScreenResizedPath)){
+            console.log("resizing")
+            let inputFile = startingScreenPath
+            let outputFile = startingScreenResizedPath
+
+            sharp(inputFile).resize({ height: 200 }).toFile(outputFile)
+            .then(function(newFileInfo) {
+                // newFileInfo holds the output file properties
+                console.log("Success")
+            })
+            .catch(function(err) {
+                console.log("Error occured");
+            });
         }
-    });
+
+        fs.readFile(startingScreenResizedPath, (err, data) => {
+            if (err) {
+                console.log(err)
+                
+            } else {
+                res.setHeader('Content-Type', 'image/jpeg');
+                res.send(data);
+            }
+        });
+    }
+
 });
 
 live.post("/",
@@ -97,15 +129,33 @@ live.post("/",
 });
 
 live.get("/start-streaming", (req, res) =>{
+
     runOpenCvPythonScript();
     res.redirect("/")
+
+    fs.unlink('./public/image.jpeg', (err) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+      console.log("image.jpeg deleted")
+    })
 })
 
 live.get("/stop-streaming", (req, res)=>{
+
     stopOpenCvPythonScript();
     const imagePath = path.join(__dirname, 'public', 'image.jpeg');
 
-    res.redirect("/")
+    res.redirect("/latest-image")
+
+    fs.unlink('./public/image.jpeg', (err) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+      console.log("image.jpeg deleted")
+    })
     
 })
 
