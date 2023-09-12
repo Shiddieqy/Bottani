@@ -1,6 +1,5 @@
 const { spawn } = require('child_process');
 const sharp = require("sharp")
-
 let pythonProcess;
 
 const path = require("path")
@@ -18,13 +17,13 @@ function runOpenCvPythonScript(){
     pythonProcess = spawn('python', ['object-tracking.py']);
 
     // Log Python script output
-    pythonProcess.stdout.on('data', (data) => {
-    console.log(`Python Output: ${data}`);
-    });
+    // pythonProcess.stdout.on('data', (data) => {
+    // console.log(`Python Output: ${data}`);
+    // });
 
-    pythonProcess.stderr.on('data', (data) => {
-    console.error(`Python Error: ${data}`);
-    });
+    // pythonProcess.stderr.on('data', (data) => {
+    // console.error(`Python Error: ${data}`);
+    // });
 }
 
 function stopOpenCvPythonScript(){
@@ -147,7 +146,7 @@ live.get("/stop-streaming", (req, res)=>{
     stopOpenCvPythonScript();
     const imagePath = path.join(__dirname, 'public', 'image.jpeg');
 
-    res.redirect("/latest-image")
+    res.redirect("/")
 
     fs.unlink('./public/image.jpeg', (err) => {
         if (err) {

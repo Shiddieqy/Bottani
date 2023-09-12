@@ -5,9 +5,9 @@ const stopButton = document.getElementById('stopButton');
 let stream;
 let pythonProcess;
 var intervalID
-
 // Draw object detection annotations on canvas
 function drawAnnotations(imageData) {
+    console.log("menggambar")
     const ctx = canvasElement.getContext('2d');
     const img = new Image();
     img.onload = function () {
@@ -20,9 +20,9 @@ function drawAnnotations(imageData) {
 }
 
 // Update canvas with annotations when new image is received
-function updateCanvas() {
+async function updateCanvas() {
     canvasElement.style.display = 'block';
-    fetch('/live/latest-image')
+    await fetch('/live/latest-image')
         .then(response => response.arrayBuffer())
         .then(data => drawAnnotations(data))
         .catch(error => console.error('Error fetching image:', error));
@@ -34,10 +34,11 @@ function hideCanvas(){
 }
 
 function startStream(){
-    fetch('/live/start-streaming') // Replace with your server's endpoint
+     fetch('/live/start-streaming')
+        .then(intervalID = setInterval(updateCanvas, 100)) // Update every second))
         .catch(error => {
             console.error('Error:', error);
-        });
+        }) // Replace with your server's endpoint
 }
 
 function stopStream(){
@@ -45,14 +46,17 @@ function stopStream(){
         .catch(error => {
             console.error('Error:', error);
         });
+    
 }
+
 
 
 // Start video stream
 startButton.addEventListener('click', () => {
-    startStream()
-    // Update the canvas periodically
-    intervalID = setInterval(updateCanvas, 100); // Update every second
+    setTimeout(startStream(), 1000)
+
+
+
 });
 
 // Stop video stream

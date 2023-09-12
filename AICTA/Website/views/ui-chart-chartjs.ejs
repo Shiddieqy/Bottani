@@ -23,6 +23,7 @@
   <body>
     <div id="app">
 
+      
       <div id="main">
         <header class="mb-3">
           <a href="#" class="burger-btn d-block d-xl-none">
@@ -37,6 +38,10 @@
                 <h3>Bedengan <%=id%></h3>
 
               </div>
+
+              <!-- <form action="/api/firebase" method="post">
+                <button type="submit" class="display:none">Submit</button>
+             </form> -->
               <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav
                   aria-label="breadcrumb"
@@ -56,27 +61,30 @@
           </div>
           <section class="section">
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="card">
                   <div class="card-header">
-                    <h4 class="card-title">Humidity</h4>
+                    <h4 class="card-title">pH</h4>
                   </div>
                   <div class="card-body">
-                    <canvas id="humidity-chart"></canvas>
+                    <canvas id="pH-chart"></canvas>
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="card">
                   <div class="card-header">
-                    <h4 class="card-title">Soil Mosture</h4>
+                    <h4 class="card-title">Moisture</h4>
                   </div>
                   <div class="card-body">
-                    <canvas id="soil-mosture-chart"></canvas>
+                    <canvas id="moisture-chart"></canvas>
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
+
+            </div>
+            <div class="row d-flex align-center justify-content-center">
+              <div class="col-md-6">
                 <div class="card">
                   <div class="card-header">
                     <h4 class="card-title">Temperature</h4>
@@ -85,9 +93,8 @@
                     <canvas id="temperature-chart"></canvas>
                   </div>
                 </div>
-              </div>
+              </div>              
             </div>
-
           </section>
         </div>
 
@@ -95,9 +102,12 @@
       </div>
     </div>
 
+    
+    <div id="bedengan-id" bedenganId="<%= id %>"></div>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <script src="/assets/static/js/firebase-chart.js">
+    <script src="/assets/static/js/firebase-chart.js" >
         
     </script>
   </body>

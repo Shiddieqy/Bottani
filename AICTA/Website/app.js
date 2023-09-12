@@ -6,6 +6,10 @@ const port = 3000;
 const bodyParser = require('body-parser'); // Import body-parser
 
 
+
+const bedenganData = require('./bedengan');
+app.locals.bedengan = bedenganData;
+
 // Set up EJS as the view engine
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -14,14 +18,12 @@ app.set('views', __dirname + '/views');
 app.use(express.static('public'));
 app.use(bodyParser.raw({ type: 'image/jpeg', limit: '10mb' }));
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
-const bedenganData = require('./bedengan');
 const liveRouter = require('./live');
+const apiRouter = require('./api')
 
 // Use the liveRouter for all /live routes
 app.use('/live', liveRouter);
-
-app.locals.bedengan = bedenganData;
-
+app.use('/api', apiRouter)
 
 // Route to render the main page
 app.get('/', (req, res) => {
@@ -39,23 +41,7 @@ app.get("/ui/chart/chartjs/:sensorId", (req, res) => {
     res.render('ui-chart-chartjs', { layout: 'layout.ejs', id: sensorId, bedengan: bedenganData });
 });
 
-app.get("/api/bedengan", (req, res) => {
 
-    res.json(bedenganData);
-})
-
-app.get("/api/bedengan/watering", (req, res) => {
-    let i = parseInt(req.query.i) - 1;
-    let j = parseInt(req.query.j);
-    let isWatered = req.query.isWatered;
-    if(!(isWatered === 'false')){
-        bedenganData[i].watered.push(j);
-    }
-    else{
-        bedenganData[i].watered = bedenganData[i].watered.filter(item => item !== j)
-    }
-    res.json(bedenganData);
-}); 
 
 // let ipAddress = require("ip").address()
 // app.listen(port, ipAddress, () => {
