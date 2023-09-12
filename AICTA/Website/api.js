@@ -64,7 +64,7 @@ api.get("/firebase/:bedenganId", (req, res) => {
         .then((snapshot) => {
             if (snapshot.exists()) {
             const data = snapshot.val();
-            console.log('Data:', data);
+            // console.log('Data:', data);
             res.send(data)
 
             } else {
