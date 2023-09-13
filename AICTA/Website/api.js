@@ -57,10 +57,30 @@ api.get("/bedengan/watering", (req, res) => {
     res.json(bedenganData);
 }); 
 
+api.get("/firebase/all", (req, res) =>{
+    const dataRef = ref(database, '/');
+    get(dataRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+            const data = snapshot.val();
+            // console.table(data);
+            res.send(data)
+
+            } else {
+            console.log('No data available');
+            res.send(null)
+            }
+        })
+        .catch((error) => {
+            console.error('Error reading data:', error);
+            res.send(error)
+        });
+})
+
 api.get("/firebase/:bedenganId", (req, res) => {
     const bedenganId = req.params.bedenganId;
-    const usersRef = ref(database, `/bedengan${bedenganId}`);
-    get(usersRef)
+    const bedenganRef = ref(database, `/bedengan${bedenganId}`);
+    get(bedenganRef)
         .then((snapshot) => {
             if (snapshot.exists()) {
             const data = snapshot.val();
@@ -77,6 +97,7 @@ api.get("/firebase/:bedenganId", (req, res) => {
             res.send(error)
         });
 });
+
 
 function getDatesBetween(startDate, endDate) {
     const currentDate = new Date(startDate.getTime());
@@ -108,7 +129,8 @@ api.post('/firebase', (req, res) => {
     for(let i=0; i<n;i++){
         dataToWrite[`bedengan${i+1}`] = {}
         for(let j=0; j< dates.length; j++){
-            dataToWrite[`bedengan${i+1}`][dates[j]] = {
+            dataToWrite[`bedengan${i+1}`][j] = {
+                date:          dates[j]                         ,
                 Moisture:       (Math.random() * 3 + 6 ).toFixed(2)  ,
                 Temperature:    (Math.random() * 1 + 26).toFixed(2)  ,
                 pH:             (Math.random() * 1.2 + 6 ).toFixed(2)  ,
