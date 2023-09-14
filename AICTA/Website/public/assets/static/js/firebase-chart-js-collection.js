@@ -82,7 +82,6 @@ function parseData(data){
         })
         dates.push(date)
     }
-    console.log(moistureDatasets)
 
 
 }
@@ -141,9 +140,6 @@ function preProcessData(dates, temperatureDatasets, MoistureDatasets, pHDatasets
 }
 
 function plot(plotName, datasets){
-
-
-
     chart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -151,24 +147,24 @@ function plot(plotName, datasets){
         datasets: datasets
     },
     options: {
-
-        plugins: {
-            title: {
-                display: false,
-                font: {
-                    size: 16,
+            responsive: true,
+            plugins: {
+                title: {
+                    display: false,
+                    font: {
+                        size: 16,
+                    }
+                },
+                legend:{
+                    display: true,
+                    position: 'right',
+                    onClick: legendClickHandler
                 }
             },
-            legend:{
-                display: true,
-                position: 'right',
-                onClick: legendClickHandler
+            scales: {
+            y: {
+                beginAtZero: true
             }
-        },
-        scales: {
-        y: {
-            beginAtZero: true
-        }
         },
 
         },
@@ -177,20 +173,11 @@ function plot(plotName, datasets){
     });
 
     const titleChartId = document.getElementById(`collection-chart-title`.toLowerCase());
-    titleChartId.innerHTML = plotName
 
     chart.options.animation = false; // disables all animations
     chart.options.animations.colors = false; // disables animation defined by the collection of 'colors' properties
     chart.options.animations.x = false; // disables animation defined by the 'x' property
     chart.options.transitions.active.animation.duration = 0; // disables the animation for 'active' mode
-
-    $(`#show-all-chart-button`.toLowerCase()).click(function() {
-        for(let i=0; i<datasets.length;i++){
-            chart.show(i)
-            chart.options.plugins.legend.hidden = false;
-        }        
-      chart.update();
-    });
 }
 
 function combineDatasets(temperatureDatasets, moistureDatasets, pHdatasets){
@@ -202,32 +189,60 @@ function combineDatasets(temperatureDatasets, moistureDatasets, pHdatasets){
 }
 
 
-
 getData()
     .then((data) => {parseData(data)})
     .then(() => {preProcessData(dates, temperatureDatasets, moistureDatasets, pHdatasets)})
     .then(() => {datasets = combineDatasets(temperatureDatasets, moistureDatasets, pHdatasets)})
     .then(()=>{plot(menu, datasets[menu])})
-
+    
 Chart.defaults.backgroundColor = '#9BD0F5';
 Chart.defaults.color = '#FFFFFF';
 
-const dropdownButton = document.querySelector('.dropdown-toggle');
-const dropdownOptions = document.querySelector('.dropdown-menu');
+// const dropdownButton = document.querySelector('.dropdown-toggle');
+// const dropdownOptions = document.querySelector('.dropdown-menu');
 
-dropdownButton.innerHTML = menu
-
-
+// dropdownButton.innerHTML = menu
 
 
-dropdownOptions.addEventListener('click', (e) => {
-if(e.target.tagName === 'A'){
-    e.preventDefault()
-    const selectedItem = e.target.textContent;
-    menu = selectedItem
+
+
+// dropdownOptions.addEventListener('click', (e) => {
+// if(e.target.tagName === 'A'){
+//     e.preventDefault()
+//     const selectedItem = e.target.textContent;
+//     menu = selectedItem
+//     chart.destroy()
+//     plot(menu, datasets[menu])
+//     dropdownButton.innerHTML = menu
+
+// }
+// });
+$(document).ready(function() {
+    $('#myTabs').find('.nav-link').click(function(e) {
+      e.preventDefault(); // Prevent the default link behavior
+
+      // Remove "active" class from all nav-links
+      $('#myTabs').find('.nav-link').removeClass('active');
+
+      // Add "active" class to the clicked nav-link
+      $(this).addClass('active');
+      menu = $(this).text()
+      chart.destroy()
+      plot(menu, datasets[menu])
+    });
+});
+
+window.addEventListener('resize', function(){
     chart.destroy()
     plot(menu, datasets[menu])
-    dropdownButton.innerHTML = menu
+})
 
-}
-});
+const showAllChartButton = document.getElementById(`show-all-chart-button`.toLowerCase());
+showAllChartButton.addEventListener('click', function(event) {  
+    console.log("Clickeld")
+    for(let i=0; i<datasets[menu].length;i++){
+        chart.show(i)
+        chart.options.plugins.legend.hidden = false;
+    }
+    chart.update();
+})
