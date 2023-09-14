@@ -1,7 +1,10 @@
 var bedenganId;
 var bedenganIdDiv;
 
-let moistureData, temperatureData, pHData, dates
+let moistureData = []
+let temperatureData = []
+let pHData = []
+let dates = []
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -9,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     bedenganId = parseInt(bedenganIdDiv.getAttribute('bedenganId'));
 
     getFirebaseData(bedenganId)
+    .then((data)=>{temperatureData, moistureData, pHData, dates = parseData(data)})
     .then(()=>{
         plot(dates, moistureData, "moisture-chart", "#e7717d")
         plot(dates, temperatureData, "temperature-chart", "#7e685a")
@@ -16,37 +20,22 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 });
 
-function parseFirebaseData(data){
-    dates = Object.keys(data)
-    moistureData = Object.values(data).map((value)=>{return parseFloat(value.Moisture)})
-    temperatureData = Object.values(data).map((value)=>{return parseFloat(value.Temperature)})
-    pHData = Object.values(data).map((value)=>{return parseFloat(value.pH)})
+function parseData(data){
+    for(let i=0; i<data.length; i++){  
+        temperatureData.push    (data[i].Temperature)
+        moistureData.push       (data[i].Moisture)
+        pHData.push             (data[i].pH)
+        dates.push              (data[i].date)
+    }
 
-    // Create an array of objects with date and data values
-    const dataWithDates = dates.map((date, index) => ({
-        date,
-        moisture: moistureData[index],
-        temperature: temperatureData[index],
-        pH: pHData[index]
-    }));
-  
-    // Sort the array of objects based on dates
-    dataWithDates.sort((a, b) => new Date(a.date) - new Date(b.date));
-    
-    // Extract sorted data arrays
-    dates = dataWithDates.map((item) => item.date);
-    moistureData = dataWithDates.map((item) => item.moisture);
-    temperatureData = dataWithDates.map((item) => item.temperature);
-    pHData = dataWithDates.map((item) => item.pH);
-    return dates, moistureData, temperatureData, pHData
+    return temperatureData, moistureData, pHData, dates
 }
+
 
 async function getFirebaseData(bedenganId){
     const data = await fetch(`/api/firebase/${bedenganId}`)
         .then(res=>res.json())
-    // const dates = Object.keys(data).map((key)=>{return new Date(key)})
-
-    dates, moistureData, temperatureData, pHData = parseFirebaseData(data)
+    return data
 }
 
 function plot(dates, data, chartId, color){

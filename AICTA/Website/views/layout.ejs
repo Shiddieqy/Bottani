@@ -27,25 +27,22 @@
         <div id="sidebar">
             <div class="sidebar-wrapper active">
               <div class="sidebar-header position-relative">
-                <div class="d-flex align-items-center justify-content-center">
-                  <div class="logo "  style="width:100px" >
-                    <a href="/"   style="width:100px"
-                      ><img
-                        src="/assets/compiled/png/logo.png"
-                        alt="Logo"
-                        style="width:75px; height: auto;"
-                        srcset=""
+
+                </div>
+                
+                <div class="d-flex align-items-center">
+                  <div class="d-flex align-items-center mx-5 " style="height:50px">
+                    <div class="logo ">
+                      <a href="/"   
+                        ><img
+                          src="/assets/compiled/png/logo.png"
+                          alt="Logo"
+                          style="width:100px; height:auto"
+                          srcset=""
                       /></a>
-
-
-                    <!-- <a href="/"
-                      ><img
-                        src="/assets/compiled/svg/logo.svg"
-                        alt="Logo"
-                        srcset=""
-                    /></a> -->
                   </div>
-                  <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
+                  
+                  <div class="mx-3 theme-toggle d-flex gap-2 align-items-center mt-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -129,12 +126,12 @@
                   </li>
 
                   <li class="sidebar-item has-sub" id="charts-sidebar">
-                    <a href="/ui/chart/chartjs" class="sidebar-link">
+                    <a id="chart-menu-anchor" href="#" class="sidebar-link">
                       <i class="bi bi-bar-chart-fill"></i>
                       <span>Charts</span>
                     </a>
     
-                    <ul class="submenu">
+                    <ul id="chart-submenu" class="submenu">
 
                       <% bedengan.forEach(bedeng => { %>
                         <li class="submenu-item" id="bedengan<%= bedeng.id %>-sidebar">
@@ -157,7 +154,7 @@
         <script src="/assets/static/js/components/dark.js"></script>
         <script src="/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="/assets/compiled/js/app.js"></script>
+        <!-- <script src="/assets/compiled/js/app.js"></script> -->
 
     
 
