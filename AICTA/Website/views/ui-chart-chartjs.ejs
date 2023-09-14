@@ -59,46 +59,36 @@
               </div>
             </div>
           </div>
-          <section class="section">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title">pH</h4>
-                  </div>
-                  <div class="card-body">
-                    <canvas id="pH-chart"></canvas>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title">Moisture</h4>
-                  </div>
-                  <div class="card-body">
-                    <canvas id="moisture-chart"></canvas>
-                  </div>
-                </div>
-              </div>
 
-            </div>
-            <div class="row d-flex align-center justify-content-center">
-              <div class="col-md-6">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title">Temperature</h4>
-                  </div>
-                  <div class="card-body">
-                    <canvas id="temperature-chart"></canvas>
-                  </div>
-                </div>
-              </div>              
-            </div>
-          </section>
         </div>
 
-
+        <div class="page-content" style="min-height: 200px">
+          <section class="section" >
+            <ul class="nav nav-pills" id="myTabs">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Temperature</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Moisture</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">pH</a>
+              </li>
+            </ul>
+                <div class="card" style="min-height: 500px">
+                  <div class="card-header">
+                    <h4 id="chart-title" class="card-title"></h4>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="chart"></canvas>
+                  </div>
+                </div>
+              </div>
+              
+          </section>
+  
+        </div>
+        
       </div>
     </div>
 

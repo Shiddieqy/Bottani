@@ -5,18 +5,19 @@ let moistureData = []
 let temperatureData = []
 let pHData = []
 let dates = []
+let dataset = []
 
+let chart
 
 document.addEventListener('DOMContentLoaded', function() {
     bedenganIdDiv = document.getElementById('bedengan-id');
     bedenganId = parseInt(bedenganIdDiv.getAttribute('bedenganId'));
 
     getFirebaseData(bedenganId)
-    .then((data)=>{temperatureData, moistureData, pHData, dates = parseData(data)})
+    .then((data)=>{dataset = parseData(data)})
     .then(()=>{
-        plot(dates, moistureData, "moisture-chart", "#e7717d")
-        plot(dates, temperatureData, "temperature-chart", "#7e685a")
-        plot(dates, pHData, "pH-chart", "#afd275")
+        plot(dates, dataset[menu])
+        
     })
 });
 
@@ -27,8 +28,13 @@ function parseData(data){
         pHData.push             (data[i].pH)
         dates.push              (data[i].date)
     }
+    dataset = {
+        "Temperature": temperatureData,
+        "Moisture": moistureData,
+        "pH": pHData
 
-    return temperatureData, moistureData, pHData, dates
+    }
+    return dataset
 }
 
 
@@ -40,7 +46,10 @@ async function getFirebaseData(bedenganId){
 
 
 
-function plot(dates, data, chartId, color){
+function plot(dates, data){
+    const chartTitleElement = document.getElementById("chart-title")
+    chartTitleElement.textContent = menu
+
     let suggestedMin = Math.min(...data)
     let suggestedMax = Math.max(...data)
     let range = suggestedMax-suggestedMin
@@ -48,14 +57,13 @@ function plot(dates, data, chartId, color){
     suggestedMax = suggestedMax + range/10
     console.log(data)
     console.log(suggestedMin, suggestedMax)
-    const ctx = document.getElementById(chartId).getContext('2d');
-    const myChart = new Chart(ctx, {
+    const ctx = document.getElementById("chart").getContext('2d');
+    chart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: dates,
             datasets: [{
                 data: data,
-                borderColor: color,
                 fill: false
             }]
         },
@@ -77,3 +85,22 @@ function plot(dates, data, chartId, color){
     });
 }
 
+menu = "Temperature"
+// Using tabs to select chart
+const myTabs = document.getElementById("myTabs")
+myTabs.addEventListener('click', function(event) {
+    event.preventDefault()
+    const selectedItem = event.target.textContent;
+    menu = selectedItem
+    console.log("menu", menu)
+    chart.destroy()
+    plot(dates, dataset[menu])
+
+    // add active class
+    const navLinks = document.querySelectorAll(".nav-link")
+    for(let i=0; i<navLinks.length; i++){
+        navLinks[i].classList.remove("active")
+    }
+    event.target.classList.add("active")
+
+})
