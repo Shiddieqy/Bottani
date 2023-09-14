@@ -38,7 +38,16 @@ async function getFirebaseData(bedenganId){
     return data
 }
 
+
+
 function plot(dates, data, chartId, color){
+    let suggestedMin = Math.min(...data)
+    let suggestedMax = Math.max(...data)
+    let range = suggestedMax-suggestedMin
+    suggestedMin = suggestedMin - range/10
+    suggestedMax = suggestedMax + range/10
+    console.log(data)
+    console.log(suggestedMin, suggestedMax)
     const ctx = document.getElementById(chartId).getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'line',
@@ -55,8 +64,9 @@ function plot(dates, data, chartId, color){
             maintainAspectRatio: false,
             scales: {
                 y: {
-                    beginAtZero: true
-                }
+                    min: suggestedMin,   // Set the minimum value for the y-axis
+                    max: suggestedMax,  // Set the maximum value for the y-axis
+                  }
             },
             plugins:{
                 legend:{
