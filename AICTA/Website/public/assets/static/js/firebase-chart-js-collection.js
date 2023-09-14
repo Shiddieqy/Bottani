@@ -139,7 +139,33 @@ function preProcessData(dates, temperatureDatasets, MoistureDatasets, pHDatasets
     }
 }
 
+function getMinimumValueOfDatasets(datasets){
+    let minimumValue = Math.min(...datasets[0]["data"])
+    for(let i=0; i<datasets.length; i++){
+        if(Math.min(...datasets[i]["data"]) < minimumValue){
+            minimumValue = Math.min(...datasets[i]["data"])
+        }
+    }
+    return minimumValue
+}
+
+function getMaximumValueOfDatasets(datasets){
+    let maximumValue = Math.max(...datasets[0]["data"])
+    for(let i=0; i<datasets.length; i++){
+        if(Math.max(...datasets[i]["data"]) > maximumValue){
+            maximumValue = Math.max(...datasets[i]["data"])
+        }
+    }
+    return maximumValue
+}
+
 function plot(plotName, datasets){
+    let suggestedMin = getMinimumValueOfDatasets(datasets) 
+    let suggestedMax = getMaximumValueOfDatasets(datasets) 
+    const range = suggestedMax - suggestedMin
+    suggestedMin = suggestedMin - range*0.1
+    suggestedMax = suggestedMax + range*0.1
+    console.log(suggestedMin, suggestedMax)
     chart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -162,9 +188,10 @@ function plot(plotName, datasets){
                 }
             },
             scales: {
-            y: {
-                beginAtZero: true
-            }
+                y: {
+                    min: suggestedMin,   // Set the minimum value for the y-axis
+                    max: suggestedMax,  // Set the maximum value for the y-axis
+                  }
         },
 
         },
@@ -198,13 +225,11 @@ getData()
 Chart.defaults.backgroundColor = '#9BD0F5';
 Chart.defaults.color = '#FFFFFF';
 
+// Using dropdown to select chart
 // const dropdownButton = document.querySelector('.dropdown-toggle');
 // const dropdownOptions = document.querySelector('.dropdown-menu');
 
 // dropdownButton.innerHTML = menu
-
-
-
 
 // dropdownOptions.addEventListener('click', (e) => {
 // if(e.target.tagName === 'A'){
@@ -217,20 +242,26 @@ Chart.defaults.color = '#FFFFFF';
 
 // }
 // });
-$(document).ready(function() {
-    $('#myTabs').find('.nav-link').click(function(e) {
-      e.preventDefault(); // Prevent the default link behavior
 
-      // Remove "active" class from all nav-links
-      $('#myTabs').find('.nav-link').removeClass('active');
 
-      // Add "active" class to the clicked nav-link
-      $(this).addClass('active');
-      menu = $(this).text()
-      chart.destroy()
-      plot(menu, datasets[menu])
-    });
-});
+// Using tabs to select chart
+const myTabs = document.getElementById("myTabs")
+myTabs.addEventListener('click', function(event) {
+    event.preventDefault()
+    const selectedItem = event.target.textContent;
+    menu = selectedItem
+    chart.destroy()
+    plot(menu, datasets[menu])
+
+    // add active class
+    const navLinks = document.querySelectorAll(".nav-link")
+    for(let i=0; i<navLinks.length; i++){
+        navLinks[i].classList.remove("active")
+    }
+    event.target.classList.add("active")
+
+})
+
 
 window.addEventListener('resize', function(){
     chart.destroy()
@@ -239,7 +270,6 @@ window.addEventListener('resize', function(){
 
 const showAllChartButton = document.getElementById(`show-all-chart-button`.toLowerCase());
 showAllChartButton.addEventListener('click', function(event) {  
-    console.log("Clickeld")
     for(let i=0; i<datasets[menu].length;i++){
         chart.show(i)
         chart.options.plugins.legend.hidden = false;
