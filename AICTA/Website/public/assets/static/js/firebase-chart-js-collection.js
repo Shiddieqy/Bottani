@@ -192,7 +192,7 @@ function plot(plotName, datasets){
                     min: suggestedMin,   // Set the minimum value for the y-axis
                     max: suggestedMax,  // Set the maximum value for the y-axis
                   }
-        },
+            },
 
         },
     

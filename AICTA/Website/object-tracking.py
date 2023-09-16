@@ -56,13 +56,14 @@ y_id = []
 check_id = []
 count_id = 0
 identified = 0
+
 def is_inside(x,y,xg,yg,wg,hg):
     if (x+width/2 > xg and x+width/2 <xg+wg and (-1*y+height/2) > yg and (-1*y+height/2) < yg+hg):
         return True
     else :
         return False
-while (1):
     
+while (1):
     _,frame = cap.read() 
     hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     h_min = cv2.getTrackbarPos('hue min', 'Track')
@@ -156,7 +157,6 @@ while (1):
             
             
 
-    
         
     cv2.drawMarker(frame, (int(width/2), int(height/2)),  (0, 0, 255), cv2.MARKER_CROSS, 10, 1)
     

@@ -4,9 +4,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const bodyParser = require('body-parser'); // Import body-parser
-
-
-
 const bedenganData = require('./bedengan');
 app.locals.bedengan = bedenganData;
 
@@ -35,23 +32,16 @@ app.get("/ui/chart/chartjs", (req, res) => {
     res.render('ui-chart-chartjs', { layout: 'layout.ejs' });
 });
 
-
 app.get("/ui/chart/chartjs/:sensorId", (req, res) => {
     const sensorId = req.params.sensorId;
     res.render('ui-chart-chartjs', { layout: 'layout.ejs', id: sensorId, bedengan: bedenganData });
 });
-
-
 
 // let ipAddress = require("ip").address()
 // app.listen(port, ipAddress, () => {
 //   console.log(`Server is running on http://${ipAddress}:${port}`);
 // });
 
-
-
 app.listen(port, ()=>{
     console.log(`Server is running on http://localhost:${port}`)
 })
-
-

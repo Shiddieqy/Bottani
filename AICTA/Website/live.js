@@ -10,13 +10,16 @@ const bodyParser = require('body-parser'); // Import body-parser
 const fs = require("fs")
 live.use(express.json({ limit: '10mb' })); // Enable JSON parsing with a 10MB limit
 const sensorsData = require('./bedengan');
+const which = require("which")
 
 
 function runOpenCvPythonScript(){
-    // Start the Python script as a child process
-    pythonProcess = spawn('python', ['object-tracking.py']);
+    console.log("running python script")
 
-    // Log Python script output
+    // Start the Python script as a child process
+    pythonProcess = spawn('python3', ['object-tracking.py']);
+
+    // // Log Python script    output
     // pythonProcess.stdout.on('data', (data) => {
     // console.log(`Python Output: ${data}`);
     // });
@@ -32,38 +35,32 @@ function stopOpenCvPythonScript(){
     }
 }
 
-
-
 // Serve static files from the "public" directory
 live.use(express.static('public'));
 live.use(bodyParser.raw({ type: 'image/jpeg', limit: '10mb' }));
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-
-
 live.post("/",
     bodyParser.raw({type: ["image/jpeg", "image/png"], limit: "5mb"}),
     (req, res) => {
-    try {
-        fs.writeFile("public/image.jpeg", req.body, (error) => {
-        if (error) {
-            throw error;
-        }
-        });
-
-        res.sendStatus(200);
-    } catch (error) {
-        res.sendStatus(500);
+        try {
+            fs.writeFile("public/image.jpeg", req.body, (error) => {
+                if (error) {
+                    throw error;
+                }
+            });
+                res.sendStatus(200);
+            } catch (error) {
+                res.sendStatus(500);
+            }
     }
-});
+);
 
 
 // Route to render the main page
 live.get('/', (req, res) => {
     res.render('live-stream');
-  });
-
-
+});
 
 // Endpoint to serve the latest image data
 live.get('/latest-image', (req, res) => {
@@ -74,15 +71,15 @@ live.get('/latest-image', (req, res) => {
         fs.readFile(imagePath, (err, data) => {
             if (err) {
                 console.log("no latest image")
-                
-            } else {
+            } 
+            else {
+
                 res.setHeader('Content-Type', 'image/jpeg');
                 res.send(data);
             }
         });
     }
     else{
-
         if(!fs.existsSync(startingScreenResizedPath)){
             console.log("resizing")
             let inputFile = startingScreenPath
@@ -97,7 +94,6 @@ live.get('/latest-image', (req, res) => {
                 console.log("Error occured");
             });
         }
-
         fs.readFile(startingScreenResizedPath, (err, data) => {
             if (err) {
                 console.log(err)
@@ -108,7 +104,6 @@ live.get('/latest-image', (req, res) => {
             }
         });
     }
-
 });
 
 live.post("/",
@@ -120,7 +115,6 @@ live.post("/",
             throw error;
         }
         });
-
         res.sendStatus(200);
     } catch (error) {
         res.sendStatus(500);
@@ -128,34 +122,42 @@ live.post("/",
 });
 
 live.get("/start-streaming", (req, res) =>{
-
     runOpenCvPythonScript();
     res.redirect("/")
+    const imagePath = path.join(__dirname, 'public', 'image.jpeg');
 
-    fs.unlink('./public/image.jpeg', (err) => {
-        if (err) {
-          console.error(err)
-          return
-        }
-      console.log("image.jpeg deleted")
-    })
+    if(fs.existsSync(imagePath)){
+        fs.unlink(imagePath, (err) => {
+            if (err) {
+              console.error(err)
+              return
+            }
+          console.log("image.jpeg deleted")
+        })
+    }
+    else{
+        console.log("image.jpeg doesn't exist")
+    }
 })
 
 live.get("/stop-streaming", (req, res)=>{
-
     stopOpenCvPythonScript();
-    const imagePath = path.join(__dirname, 'public', 'image.jpeg');
-
     res.redirect("/")
-
-    fs.unlink('./public/image.jpeg', (err) => {
-        if (err) {
-          console.error(err)
-          return
-        }
-      console.log("image.jpeg deleted")
-    })
+    const imagePath = path.join(__dirname, 'public', 'image.jpeg');
     
+
+    if(fs.existsSync(imagePath)){
+        fs.unlink(imagePath, (err) => {
+            if (err) {
+              console.error(err)
+              return
+            }
+          console.log("image.jpeg deleted")
+        })
+    }
+    else{
+        console.log("image.jpeg doesn't exist")
+    }
 })
 
 

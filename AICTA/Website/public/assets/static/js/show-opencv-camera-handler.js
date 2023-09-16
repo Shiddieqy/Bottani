@@ -30,15 +30,15 @@ async function updateCanvas() {
 }
 
 function hideCanvas(){
+    const ctx = canvasElement.getContext('2d');
     canvasElement.style.display = 'none';
+    ctx.clearRect(0, 0, canvasElement.width, canvasElement.height)
 }
 
 function startStream(){
+    console.log("starting stream")
      fetch('/live/start-streaming')
-        .then(intervalID = setInterval(updateCanvas, 100)) // Update every second))
-        .catch(error => {
-            console.error('Error:', error);
-        }) // Replace with your server's endpoint
+
 }
 
 function stopStream(){
@@ -46,23 +46,19 @@ function stopStream(){
         .catch(error => {
             console.error('Error:', error);
         });
-    
 }
-
-
 
 // Start video stream
 startButton.addEventListener('click', () => {
-    setTimeout(startStream(), 1000)
-
-
-
+    startStream()
+    intervalID = setInterval(updateCanvas, 100);
 });
 
 // Stop video stream
 stopButton.addEventListener('click', () => {
     stopStream()
     try{  
+        console.log("clearing image")
         if(intervalID){
             clearInterval(intervalID)
         } 
