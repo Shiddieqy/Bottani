@@ -19,13 +19,16 @@ function drawAnnotations(imageData) {
     img.src = URL.createObjectURL(new Blob([imageData], { type: 'image/jpeg' }));
 }
 
+async function getLatestImage(){
+    const imgData = await fetch('/live/latest-image')
+                        .then(response => response.arrayBuffer())
+    return imgData
+}
+
 // Update canvas with annotations when new image is received
 async function updateCanvas() {
     canvasElement.style.display = 'block';
-    await fetch('/live/latest-image')
-        .then(response => response.arrayBuffer())
-        .then(data => drawAnnotations(data))
-        .catch(error => console.error('Error fetching image:', error));
+    getLatestImage().then(data => drawAnnotations(data))
         
 }
 
@@ -37,8 +40,7 @@ function hideCanvas(){
 
 function startStream(){
     console.log("starting stream")
-     fetch('/live/start-streaming')
-
+    fetch('/live/start-streaming')
 }
 
 function stopStream(){
@@ -58,7 +60,6 @@ startButton.addEventListener('click', () => {
 stopButton.addEventListener('click', () => {
     stopStream()
     try{  
-        console.log("clearing image")
         if(intervalID){
             clearInterval(intervalID)
         } 

@@ -154,10 +154,6 @@ while (1):
         else :
             check_id[l] = 0
             
-            
-            
-
-        
     cv2.drawMarker(frame, (int(width/2), int(height/2)),  (0, 0, 255), cv2.MARKER_CROSS, 10, 1)
     
     message = "#" + str(len(id_no)) + " "
@@ -168,16 +164,16 @@ while (1):
     # ser.write(message.encode())
     print(f"Sent: {message}")
 
-    # cv2.imshow('ori',frame)
+    cv2.imshow('ori',frame)
     _, encoded_frame = cv2.imencode('.jpg', frame)
 
-    response = requests.post(server_url, data=encoded_frame.tobytes(), headers={'Content-Type': 'image/jpeg'})
-    if response.status_code == 200:
-        print(response.text)
-    else:
-        print('Failed to send data')
+    # response = requests.post(server_url, data=encoded_frame.tobytes(), headers={'Content-Type': 'image/jpeg'})
+    # if response.status_code == 200:
+    #     print(response.text)
+    # else:
+    #     print('Failed to send data')
     
-    # cv2.imshow('hsv',mask)
+    cv2.imshow('hsv',mask)
     
     if cv2.waitKey(1) %0xFF == ord('q'):
         break
