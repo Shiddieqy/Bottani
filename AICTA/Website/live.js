@@ -42,7 +42,9 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 live.post("/",
     bodyParser.raw({type: ["image/jpeg", "image/png"], limit: "5mb"}),
-    (req, res) => {
+    (req, res) => 
+    {
+        // console.log(req.body)
         try {
             fs.writeFile("public/image.jpeg", req.body, (error) => {
                 if (error) {
