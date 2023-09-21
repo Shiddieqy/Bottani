@@ -2,7 +2,8 @@ import cv2
 import numpy as np
 import time
 import requests
-#import serial
+import pickle
+# import serial
 
 
 # Define the serial port and baud rate
@@ -29,8 +30,9 @@ import socket
 hostname=socket.gethostname()   
 IPAddr=socket.gethostbyname(hostname)   
 
-# server_url = "http://{IPaddr}:3000/live".format(IPaddr=IPAddr)
-server_url = "http://localhost:3000/live"
+server_url = "http://{IPaddr}:3000/live".format(IPaddr=IPAddr)
+print(server_url)
+# server_url = "http://localhost:3000/live"
 
 cv2.namedWindow("Track")
 cv2.resizeWindow("Track",700,512)
@@ -39,12 +41,24 @@ threshold_area = 1000
 def track(x):
     return x
 
-cv2.createTrackbar('hue min', 'Track', 0,179,track)
-cv2.createTrackbar('hue max', 'Track', 179,179,track)
-cv2.createTrackbar('sat min', 'Track', 0,255,track)
-cv2.createTrackbar('sat max', 'Track', 255,255,track)
-cv2.createTrackbar('val min', 'Track', 0,255,track)
-cv2.createTrackbar('val max', 'Track', 255,255,track)
+# Get tracker data
+file = open("tracker-data.txt", "rb")
+trackerData = pickle.load(file)
+
+h_min = trackerData["h_min"]
+h_max = trackerData["h_max"]
+s_min = trackerData["s_min"]
+s_max = trackerData["s_max"]
+v_min = trackerData["v_min"]
+v_max = trackerData["v_max"]
+
+cv2.createTrackbar('hue min', 'Track', h_min,179,track)
+cv2.createTrackbar('hue max', 'Track', h_max,179,track)
+cv2.createTrackbar('sat min', 'Track', s_min,255,track)
+cv2.createTrackbar('sat max', 'Track', s_max,255,track)
+cv2.createTrackbar('val min', 'Track', v_min,255,track)
+cv2.createTrackbar('val max', 'Track', v_max,255,track)
+
 cap = cv2.VideoCapture(0)
 tracker = cv2.legacy.TrackerMOSSE_create()
 # cap = cv2.VideoCapture("video.mp4")
@@ -56,6 +70,8 @@ y_id = []
 check_id = []
 count_id = 0
 identified = 0
+
+
 
 def is_inside(x,y,xg,yg,wg,hg):
     if (x+width/2 > xg and x+width/2 <xg+wg and (-1*y+height/2) > yg and (-1*y+height/2) < yg+hg):
@@ -72,7 +88,17 @@ while (1):
     s_max = cv2.getTrackbarPos('sat max', 'Track')
     v_min = cv2.getTrackbarPos('val min', 'Track')
     v_max = cv2.getTrackbarPos('val max', 'Track')
-
+    trackerData = {
+        "h_min" : h_min,
+        "h_max" : h_max,
+        "s_min" : s_min,
+        "s_max" : s_max,
+        "v_min" : v_min,
+        "v_max" : v_max
+    }
+    file = open("tracker-data.txt","wb")
+    pickle.dump(trackerData ,file)
+    file.close()
 
     #mask
     # lower = np.array([h_min, s_min, v_min])
@@ -154,10 +180,6 @@ while (1):
         else :
             check_id[l] = 0
             
-            
-            
-
-        
     cv2.drawMarker(frame, (int(width/2), int(height/2)),  (0, 0, 255), cv2.MARKER_CROSS, 10, 1)
     
     message = "#" + str(len(id_no)) + " "
