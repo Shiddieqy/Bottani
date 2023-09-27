@@ -128,7 +128,7 @@ while (1):
             # Kalau bukan tanaman pertama
             if (len(id_no)>0):
                 identified = 0
-                for j in range(len(id_no)) :
+                for j in range(len(id_no) and ycord > -height/4) :
                     if (is_inside(x_id[j],y_id[j],xg,yg,wg,hg)):
                         x_id[j] = xcord
                         y_id[j] = ycord
@@ -138,7 +138,7 @@ while (1):
                         break
 
             # Not identified tapi ada di pinggir frame kamera, jadi pasti baru  
-            if(((not identified or len(id_no) == 0) and (xg == 0 or xg+wg == width or yg == 0 or yg+hg == height)) or count_id == 0):
+            if(((not identified or len(id_no) == 0) and (xg == 0 or xg+wg == width or yg == 0 or yg+hg == height)) or count_id == 0 and ycord > -height/4):
                 count_id += 1
                 id_no.append(count_id)
                 check_id.append(1)
@@ -146,7 +146,7 @@ while (1):
                 y_id.append(ycord)
                 cv2.putText(frame, str(count_id), (xg,yg-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
             # Not identified, berada di tengah frame,dan pasti punya tetangga
-            elif (not identified and len(id_no) > 0):
+            elif (not identified and len(id_no) > 0 and ycord > -height/4):
                 # Sisi miring frame kamera
                 rmax = (width*width + height*height)
                 identity = 0
@@ -199,7 +199,7 @@ while (1):
     else:
         print('Failed to send data')
     
-    # cv2.imshow('hsv',mask)
+    cv2.imshow('hsv',mask)
     
     if cv2.waitKey(1) %0xFF == ord('q'):
         break

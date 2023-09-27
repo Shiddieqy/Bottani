@@ -53,8 +53,8 @@ function plot(dates, data){
     let suggestedMin = Math.min(...data)
     let suggestedMax = Math.max(...data)
     let range = suggestedMax-suggestedMin
-    suggestedMin = suggestedMin - range/10
-    suggestedMax = suggestedMax + range/10
+    suggestedMin = suggestedMin - range
+    suggestedMax = suggestedMax + range
     console.log(data)
     console.log(suggestedMin, suggestedMax)
     const ctx = document.getElementById("chart").getContext('2d');

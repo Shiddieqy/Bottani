@@ -163,8 +163,8 @@ function plot(plotName, datasets){
     let suggestedMin = getMinimumValueOfDatasets(datasets) 
     let suggestedMax = getMaximumValueOfDatasets(datasets) 
     const range = suggestedMax - suggestedMin
-    suggestedMin = suggestedMin - range*0.1
-    suggestedMax = suggestedMax + range*0.1
+    suggestedMin = suggestedMin - range*2
+    suggestedMax = suggestedMax + range*2
     console.log(suggestedMin, suggestedMax)
     chart = new Chart(ctx, {
     type: 'line',

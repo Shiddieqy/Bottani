@@ -114,12 +114,18 @@ function getDateStringFormat(date){
 }
 
 
+const randomGauss = () => {
+    const theta = 2 * Math.PI * Math.random();
+    const rho = Math.sqrt(-2 * Math.log(1 - Math.random()));
+    return (rho * Math.cos(theta)) / 10.0 + 0.5;
+};
 
 api.post('/firebase', (req, res) => {
     const n = 20 // Jumlah bedengan
 
     var today = new Date();
-    var priorDate = new Date(new Date().setDate(today.getDate() - 30));
+    var numDates = 180
+    var priorDate = new Date(new Date().setDate(today.getDate() - numDates));
     
     const dates = getDatesBetween(priorDate, today).map(date => getDateStringFormat(date))
 
@@ -128,12 +134,22 @@ api.post('/firebase', (req, res) => {
     
     for(let i=0; i<n;i++){
         dataToWrite[`bedengan${i+1}`] = {}
+        const minimalMoistureFluctuation = 5
+        const minimalTemperatureFluctuation = 0.2
+        const minimalpHFluctuation = 1.0
+        const maximumMoistureFluctuation = 7.5
+        const maximumTemperatureFluctuation = 0.5
+        const maximumpHFluctuation = 2.0
+
+        const moistureFluctuation = randomGauss() * (maximumMoistureFluctuation - minimalMoistureFluctuation)/2 + minimalMoistureFluctuation
+        const temperatureFluctuation = Math.random() * randomGauss() * (maximumTemperatureFluctuation - minimalTemperatureFluctuation)/2 + minimalTemperatureFluctuation
+        const pHFluctuation = Math.random() * randomGauss() * (maximumpHFluctuation - minimalpHFluctuation)/2 + minimalpHFluctuation
         for(let j=0; j< dates.length; j++){
             dataToWrite[`bedengan${i+1}`][j] = {
                 date:          dates[j]                         ,
-                Moisture:       (Math.random() * 3 + 6 ).toFixed(2)  ,
-                Temperature:    (Math.random() * 1 + 26).toFixed(2)  ,
-                pH:             (Math.random() * 1.2 + 6 ).toFixed(2)  ,
+                Moisture:       (randomGauss() * moistureFluctuation + 50 ).toFixed(2)  ,
+                Temperature:    (randomGauss() * temperatureFluctuation + 26).toFixed(2)  ,
+                pH:             (randomGauss() * pHFluctuation + 6 ).toFixed(2)  ,
             }
         }
     }
