@@ -104,3 +104,5 @@ myTabs.addEventListener('click', function(event) {
     event.target.classList.add("active")
 
 })
+Chart.defaults.color = '#FFFFFF';
+

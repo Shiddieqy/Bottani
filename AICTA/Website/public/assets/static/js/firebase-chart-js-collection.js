@@ -44,12 +44,39 @@ let legendClickHandler = (e, legendItem, legend) => {
     }
 
 }
+function createLinearGradientStrings(r1, g1, b1, r2, g2, b2, opacity, N) {
+    const gradientStrings = [];
+    
+    // Calculate the step size for each color channel
+    const deltaR = (r2 - r1) / (N - 1);
+    const deltaG = (g2 - g1) / (N - 1);
+    const deltaB = (b2 - b1) / (N - 1);
+  
+    // Generate the gradient strings
+    for (let i = 0; i < N; i++) {
+      const currentR = Math.round(r1 + i * deltaR);
+      const currentG = Math.round(g1 + i * deltaG);
+      const currentB = Math.round(b1 + i * deltaB);
+      const gradientString = `rgba(${currentR},${currentG},${currentB},${opacity})`;
+      gradientStrings.push(gradientString);
+    }
+  
+    return gradientStrings;
+  }
+  
 
+  
+  
 function parseData(data){
     console.log("parsing data")
 
     // console.log("data: ", data)
+    
     bedenganId = Object.keys(data)
+    const gradientColors = createLinearGradientStrings(147, 251, 157, 9, 199, 251, 0.65, bedenganId.length);
+    const moistureGradientColors = createLinearGradientStrings(191, 178, 243, 248, 163, 168, 0.65, bedenganId.length);   
+    const pHGradientColors = createLinearGradientStrings(248, 163, 168, 156, 220, 170, 0.65, bedenganId.length);
+    console.log(gradientColors)
     for(let i=0; i<bedenganId.length; i++){
         const bedenganData = data[`bedengan${i+1}`]
         var temperatureDataset = []
@@ -64,21 +91,28 @@ function parseData(data){
                 date.push(bedenganData[j].date)
             }
         }
-     
+        
         temperatureDatasets.push({
             label: `bedengan ${i+1}`,
             data: temperatureDataset,
-            borderWidth: 1  
+            borderWidth: 1,
+            backgroundColor: gradientColors[i],
+            borderColor: gradientColors[i],
+
         })
-        moistureDatasets.push({
+        moistureDatasets.push({ 
             label: `bedengan ${i+1}`,
             data: moistureDataset,
-            borderWidth: 1
+            borderWidth: 1,
+            backgroundColor: moistureGradientColors[i],
+            borderColor: moistureGradientColors[i],
         })
         pHdatasets.push({
             label: `bedengan ${i+1}`,
             data: pHdataset,
-            borderWidth: 1
+            borderWidth: 1,
+            backgroundColor: pHGradientColors[i],
+            borderColor: pHGradientColors[i],
         })
         dates.push(date)
     }
@@ -158,7 +192,7 @@ function getMaximumValueOfDatasets(datasets){
     }
     return maximumValue
 }
-
+  
 function plot(plotName, datasets){
     let suggestedMin = getMinimumValueOfDatasets(datasets) 
     let suggestedMax = getMaximumValueOfDatasets(datasets) 
@@ -170,11 +204,15 @@ function plot(plotName, datasets){
     type: 'line',
     data: {
         labels: labels,
-        datasets: datasets
+        datasets: datasets,
     },
     options: {
             responsive: true,
             plugins: {
+                colors:{
+                    enabled: false,
+                    forceOverride: true
+                },
                 title: {
                     display: false,
                     font: {
@@ -222,7 +260,7 @@ getData()
     .then(() => {datasets = combineDatasets(temperatureDatasets, moistureDatasets, pHdatasets)})
     .then(()=>{plot(menu, datasets[menu])})
     
-Chart.defaults.backgroundColor = '#9BD0F5';
+// Chart.defaults.backgroundColor = '#9BD0F5';
 Chart.defaults.color = '#FFFFFF';
 
 // Using dropdown to select chart

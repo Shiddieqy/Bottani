@@ -37,11 +37,11 @@ app.get("/ui/chart/chartjs/:sensorId", (req, res) => {
     res.render('ui-chart-chartjs', { layout: 'layout.ejs', id: sensorId, bedengan: bedenganData });
 });
 
-let ipAddress = require("ip").address()
-app.listen(port, ipAddress, () => {
-  console.log(`Server is running on http://${ipAddress}:${port}`);
-});
+// let ipAddress = require("ip").address()
+// app.listen(port, ipAddress, () => {
+//   console.log(`Server is running on http://${ipAddress}:${port}`);
+// });
 
-// app.listen(port, ()=>{
-//     console.log(`Server is running on http://localhost:${port}`)
-// })
+app.listen(port, ()=>{
+    console.log(`Server is running on http://localhost:${port}`)
+})
