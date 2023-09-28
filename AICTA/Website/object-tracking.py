@@ -51,6 +51,8 @@ s_min = trackerData["s_min"]
 s_max = trackerData["s_max"]
 v_min = trackerData["v_min"]
 v_max = trackerData["v_max"]
+a_min = trackerData["a_min"]
+a_max = trackerData["a_max"]
 
 cv2.createTrackbar('hue min', 'Track', h_min,179,track)
 cv2.createTrackbar('hue max', 'Track', h_max,179,track)
@@ -58,6 +60,8 @@ cv2.createTrackbar('sat min', 'Track', s_min,255,track)
 cv2.createTrackbar('sat max', 'Track', s_max,255,track)
 cv2.createTrackbar('val min', 'Track', v_min,255,track)
 cv2.createTrackbar('val max', 'Track', v_max,255,track)
+cv2.createTrackbar('area min', 'Track', a_min,5000,track)
+cv2.createTrackbar('area max', 'Track', a_max,50000,track)
 
 cap = cv2.VideoCapture(0)
 tracker = cv2.legacy.TrackerMOSSE_create()
@@ -88,13 +92,17 @@ while (1):
     s_max = cv2.getTrackbarPos('sat max', 'Track')
     v_min = cv2.getTrackbarPos('val min', 'Track')
     v_max = cv2.getTrackbarPos('val max', 'Track')
+    a_min = cv2.getTrackbarPos("area min", 'Track')
+    a_max = cv2.getTrackbarPos("area max", 'Track')
     trackerData = {
         "h_min" : h_min,
         "h_max" : h_max,
         "s_min" : s_min,
         "s_max" : s_max,
         "v_min" : v_min,
-        "v_max" : v_max
+        "v_max" : v_max,
+        "a_min" : a_min,
+        "a_max" : a_max
     }
     file = open("tracker-data.txt","wb")
     pickle.dump(trackerData ,file)

@@ -1,22 +1,37 @@
-let bedenganData = {}
-async function fetchPlantWateringQuery(i, j, isWatered){
-    console.log("fetching from plant-watering.js")
-    bedenganData = await fetch(`/api/bedengan/watering/?i=${i}&j=${j}&isWatered=${isWatered}`)
-    .then(res => res.json())
-}
+const socket = io();
 
+  // Function to toggle and store button state
+  function toggleButtonState(id) {
+    const buttonElement = document.getElementById(id);
+    const buttonKey = buttonElement.id;
+    const isWatered = buttonElement.matches('.btn-success');
+
+    // Update the button state
+    if (isWatered) {
+      buttonElement.classList.remove('btn-success');
+      buttonElement.classList.add('btn-secondary');
+    } else {
+      buttonElement.classList.remove('btn-secondary');
+      buttonElement.classList.add('btn-success');
+    }
+
+    // Send a message to the server to inform about the button state change
+    const message = {
+      key: buttonKey,
+      isWatered: !isWatered,
+    };
+    socket.emit('toggle-button', message);
+    localStorage.setItem(buttonKey, !isWatered);
+  }
+
+let bedenganData = {}
 
 async function run() {
     bedenganData = await fetch("/api/bedengan")
         .then(res => res.json())
-
-    let idx = 0
-    let jdx = 0
-
-
+    console.log(bedenganData)
     const buttonContainer = document.getElementById("button-container")
 
-    // Add a click event listener to the container
 
 
     buttonContainer.addEventListener('click', function(event) {
@@ -26,8 +41,6 @@ async function run() {
             const buttonId = event.target.id;
             // console.log(`Button with ID ${buttonId} was clicked.`);
             const plantElement = document.getElementById(buttonId)
-
-  
             const numbers = buttonId.match(/\d+/g);
 
             let i,j
@@ -40,24 +53,56 @@ async function run() {
                 console.log("Invalid input format");
             }
 
+            const message = {
+                i: i,
+                j: j,
+            };
+
             if(plantElement.matches('.btn-secondary')){
                 plantElement.classList.remove("btn-secondary")
                 plantElement.classList.add("btn-success")  
+                // Send a message to the server to inform about the button state change
+                message.isWatered = true
+                socket.emit('toggle-button', message);
             }
             else if(plantElement.matches('.btn-success')){
                 plantElement.classList.remove("btn-success")
                 plantElement.classList.add("btn-secondary")
+                message.isWatered = false
+                socket.emit('toggle-button', message);
             }
 
-            fetchPlantWateringQuery(i, j, plantElement.matches('.btn-success'))
+            // fetchPlantWateringQuery(i, j, plantElement.matches('.btn-success'))
+ 
+        }
+    });
+    socket.on('connect', () => {
+        console.log('Connected to the server');
+      });
+      
+      socket.on('error', (error) => {
+        console.error('Socket.IO Error:', error);
+      });
+    socket.on('toggle-button', (message) => {
+        console.log(message)
+        // Update the button state based on the message received from the server
+        const id = `Bedengan ${message.i}-${message.j}`
+        const plantElement = document.getElementById(id)
+        if(message.isWatered){
+            plantElement.classList.remove("btn-secondary")
+            plantElement.classList.add("btn-success")  
+            // Send a message to the server to inform about the button state change
+        }
+        else{
+            plantElement.classList.remove("btn-success")
+            plantElement.classList.add("btn-secondary")
         }
     });
 
 }
 
-
 function waterPlant(bedenganData) {
-    // console.table(bedenganData)
+    console.table(bedenganData)
 
     for(let i=0; i<bedenganData.length; i++){
         for(let j=0; j<bedenganData[i].plantCount; j++){
@@ -71,8 +116,6 @@ function waterPlant(bedenganData) {
     }
 }
 
-
-run().then(
-    ()=>{waterPlant(bedenganData)}
-);
+run()
+    .then(() => waterPlant(bedenganData))
 

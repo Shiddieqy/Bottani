@@ -56,3 +56,4 @@ Module.symvers
 Mkfile.old
 dkms.conf
 AICTA/Website/public/image.jpeg
+*.mp4

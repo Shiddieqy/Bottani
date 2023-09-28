@@ -8,10 +8,14 @@ const live = express.Router();
 const port = 3000;
 const bodyParser = require('body-parser'); // Import body-parser
 const fs = require("fs")
+
+
+
 live.use(express.json({ limit: '10mb' })); // Enable JSON parsing with a 10MB limit
 const sensorsData = require('./bedengan');
 const which = require("which")
-
+// Serve the Socket.io client script
+live.use('/socket.io', express.static(__dirname + '/node_modules/socket.io-client/dist'));
 
 function runOpenCvPythonScript(){
     console.log("running python script")
@@ -19,14 +23,14 @@ function runOpenCvPythonScript(){
     // Start the Python script as a child process
     pythonProcess = spawn('python3', ['object-tracking.py']);
 
-    // // Log Python script    output
-    // pythonProcess.stdout.on('data', (data) => {
-    // console.log(`Python Output: ${data}`);
-    // });
+    // Log Python script    output
+    pythonProcess.stdout.on('data', (data) => {
+    console.log(`Python Output: ${data}`);
+    });
 
-    // pythonProcess.stderr.on('data', (data) => {
-    // console.error(`Python Error: ${data}`);
-    // });
+    pythonProcess.stderr.on('data', (data) => {
+    console.error(`Python Error: ${data}`);
+    });
 }
 
 function stopOpenCvPythonScript(){
