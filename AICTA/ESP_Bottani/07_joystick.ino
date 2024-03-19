@@ -52,22 +52,35 @@ void notify()
         button_s_spray = 1;
     if( Ps3.event.button_up.l1 )
         button_s_spray = 0;
-
-//    if( Ps3.event.button_down.r1 )
-//        Serial.println("Started pressing the right shoulder button");
-//    if( Ps3.event.button_up.r1 )
-//        Serial.println("Released the right shoulder button");
+//
+    if( Ps3.event.button_down.r1 ){
+        if(!is_auto){
+          myservo.write(OPEN_DEGREE);
+        }
+}
+    if( Ps3.event.button_up.r1 ){
+        if(!is_auto){
+          myservo.write(CLOSE_DEGREE);
+        }
+    }
 //
 //    //-------------- Digital trigger button events -------------
-//    if( Ps3.event.button_down.l2 )
-//        Serial.println("Started pressing the left trigger button");
-//    if( Ps3.event.button_up.l2 )
-//        Serial.println("Released the left trigger button");
+    if( Ps3.event.button_down.l2 ){
+        is_auto = 0;
+        is_manual = 1;
+    }
+    if( Ps3.event.button_up.l2 ){
+        is_auto = 0;
+        is_manual = 1;}
 //
-//    if( Ps3.event.button_down.r2 )
-//        Serial.println("Started pressing the right trigger button");
-//    if( Ps3.event.button_up.r2 )
-//        Serial.println("Released the right trigger button");
+    if( Ps3.event.button_down.r2 ){
+        is_auto = 1;
+        is_manual = 0;
+    }
+    if( Ps3.event.button_up.r2 ){
+        is_auto = 1;
+        is_manual = 0;
+    }
 //
 //    //--------------- Digital stick button events --------------
 //    if( Ps3.event.button_down.l3 )
@@ -81,15 +94,15 @@ void notify()
 //        Serial.println("Released the right stick button");
 //
 //    //---------- Digital select/start/ps button events ---------
-//    if( Ps3.event.button_down.select )
-//        Serial.println("Started pressing the select button");
-//    if( Ps3.event.button_up.select )
-//        Serial.println("Released the select button");
-//
-//    if( Ps3.event.button_down.start )
-//        Serial.println("Started pressing the start button");
-//    if( Ps3.event.button_up.start )
-//        Serial.println("Released the start button");
+    if( Ps3.event.button_down.select )
+        sensor_motordown = 1;
+    if( Ps3.event.button_up.select )
+        sensor_motordown = 0;
+
+    if( Ps3.event.button_down.start )
+        sensor_motor = 1;
+    if( Ps3.event.button_up.start )
+        sensor_motor = 0;
 //
 //    if( Ps3.event.button_down.ps )
 //        Serial.println("Started pressing the Playstation button");

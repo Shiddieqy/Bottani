@@ -6,6 +6,9 @@
 //#endif
 #include <Ps3Controller.h>
 #include <ESP32Encoder.h>
+#include <ESP32Servo.h>
+
+Servo myservo;  // create servo object to control a servo
 
 ESP32Encoder encoder;
 //#include <Firebase_ESP_Client.h>
@@ -20,4 +23,5 @@ ESP32Encoder encoder;
 #define M_TOPIC "sensor/Moisture"
 
 #define ts_sensor 500
+#define ts_auto_spray 20
 #define ts_button 10

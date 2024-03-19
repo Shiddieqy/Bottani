@@ -1,6 +1,6 @@
-float kp = 0.35;
-float ki = 0.002;
-float kd = 8.5;
+float kp = 0.4;
+float ki = 0.01;
+float kd = 8;
 int prev_error = 0;
 float integral = 0;
 int res;
@@ -10,7 +10,7 @@ int calc_pid(int sp, int feedback){
   int prop = error*kp;
   int difference = (error-prev_error)*kd;
   prev_error = error;
-  if (abs(error)<50){
+  if (abs(error)<PULSE_TOLERANCE){
     integral = 0;
     return 0;
   }

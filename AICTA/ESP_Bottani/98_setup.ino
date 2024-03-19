@@ -1,7 +1,13 @@
 void setup(){
   Serial.begin(115200);
-  ESP32Encoder::useInternalWeakPullResistors=UP;
+  ESP32PWM::allocateTimer(0);
+  ESP32PWM::allocateTimer(1);
+  ESP32PWM::allocateTimer(2);
+  ESP32PWM::allocateTimer(3);
+  myservo.setPeriodHertz(50);    // standard 50 hz servo
 
+  ESP32Encoder::useInternalWeakPullResistors=UP;
+  
   // use pin 19 and 18 for the first encoder
   encoder.attachHalfQuad(encXa, encXb);
   // use pin 17 and 16 for the second encoder
@@ -33,7 +39,11 @@ void setup(){
 
   ledcSetup(Z, PWM_FREQUENCY , PWM_RES);
   ledcAttachPin(Z_PWM, Z);
-
+    ledcSetup(S, PWM_FREQUENCY , PWM_RES);
+  ledcAttachPin(S_PWM, S);
+    myservo.attach(SERVO_PIN,1000,2000);
+  myservo.write(OPEN_DEGREE);
+  myservo.write(CLOSE_DEGREE);
   pinMode(L_FORWARD,OUTPUT);
   pinMode(L_REVERSE,OUTPUT);
   pinMode(R_FORWARD,OUTPUT);
@@ -42,5 +52,8 @@ void setup(){
   pinMode(X_REVERSE,OUTPUT);
   pinMode(Z_FORWARD,OUTPUT);
   pinMode(Z_REVERSE,OUTPUT);
+  pinMode(S_FORWARD,OUTPUT);
+  pinMode(S_REVERSE,OUTPUT);
   pinMode(PUMP,OUTPUT);
+  pinMode(LIMIT,INPUT_PULLUP);
 }

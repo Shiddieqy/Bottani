@@ -1,19 +1,35 @@
-int setpoint = 1000;
-int xpwm = 0;
-int currpulse = 0;
+
 void loop(){
+//  if(!encoder_ready){
+//    runmotor(X,-1*X_PWM);
+//    if(digitalRead(LIMIT)):{
+//      encoder_ready = 1;
+//      runmotor(X,0);
+//      encoder.setCount(0);
+//    }
+//  }
+  currpulse = (int32_t)encoder.getCount();
   if(Serial.available()){
     setpoint = Serial.parseInt();
   }
   if((millis()-button_timer)>ts_button){
     button_timer = millis();
-    currpulse = (int32_t)encoder.getCount();
     xpwm = calc_pid(setpoint, currpulse);
-//    runmotor(X,xpwm);
+    if(is_manual){
+      sampling_spray();
+    }
+    else{
+    runmotor(X,xpwm);
+    }
+
     
       sampling_track();
-      sampling_spray();
-      Serial.println(" Encoder count = " + String(currpulse) + " setpoint = " + String(setpoint) + " pwm = " + String(xpwm));
+//      
+      Serial.println(" Encoder count = " + String(currpulse) + " setpoint = " + String(setpoint) + " pwm = " + String(xpwm) + String(current_sequence));
+  }
+  if((millis()-auto_timer)>ts_auto_spray && is_auto){
+    auto_spray(spray_sequence[current_sequence]); 
+
   }
   if ((millis()-sensor_timer)>ts_sensor && Ps3.isConnected()){
       Ps3.setPlayer(player);

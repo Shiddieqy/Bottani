@@ -1,9 +1,9 @@
-enum Motor{L,R,X,Z};
-int pwm[N_Motor] = {L_PWM,R_PWM,X_PWM,Z_PWM};
-int forward[N_Motor] = {26,R_FORWARD,X_FORWARD,Z_FORWARD};
-int m_reverse[N_Motor] = {27,R_REVERSE,X_REVERSE,Z_REVERSE};
-int prev_cmd[N_Motor] = {0,0,0,0};
-int increment = 15;
+enum Motor{SERVO,L,R,X,Z,S};
+int pwm[N_Motor] = {SERVO,L_PWM,R_PWM,X_PWM,Z_PWM,S_PWM};
+int forward[N_Motor] = {SERVO,L_FORWARD,R_FORWARD,X_FORWARD,Z_FORWARD,S_FORWARD};
+int m_reverse[N_Motor] = {SERVO,L_REVERSE,R_REVERSE,X_REVERSE,Z_REVERSE,S_REVERSE};
+int prev_cmd[N_Motor] = {0,0,0,0,0,0};
+int increment = 5;
 
 void runmotor(int channel,int cmd){
   if (abs(cmd)>255){
